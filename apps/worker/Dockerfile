@@ -1,22 +1,36 @@
-# Use the official Playwright image which bundles Chromium
-FROM mcr.microsoft.com/playwright:v1.43.1-jammy AS base
+# Playwright official image bundles Chromium — required for JS-rendered scraping
+FROM mcr.microsoft.com/playwright:v1.43.1-jammy AS builder
 WORKDIR /app
 
-# Copy root workspace manifests
 COPY package.json package-lock.json* ./
 COPY packages/shared/package.json ./packages/shared/
+COPY packages/db/package.json ./packages/db/
 COPY apps/worker/package.json ./apps/worker/
 
-# Install workspace deps
-RUN npm install --workspace=@promotions/shared --workspace=@promotions/worker
+RUN npm install --ignore-scripts
 
-# Copy source
-COPY packages/shared ./packages/shared
-COPY apps/worker ./apps/worker
 COPY tsconfig.base.json ./
+COPY packages/shared ./packages/shared
+COPY packages/db ./packages/db
+COPY apps/worker ./apps/worker
 
-# Build
-RUN npm run build --workspace=@promotions/shared
-RUN npm run build --workspace=@promotions/worker
+RUN npm run build --workspace=packages/shared
+RUN npm run build --workspace=packages/db
+RUN npm run build --workspace=apps/worker
 
-CMD ["node", "apps/worker/dist/index.js"]
+# ── Runtime image ──────────────────────────────────────────────────────────
+# Use same Playwright image for runtime so Chromium is available
+FROM mcr.microsoft.com/playwright:v1.43.1-jammy AS runtime
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+COPY packages/shared/package.json ./packages/shared/
+COPY packages/db/package.json ./packages/db/
+COPY apps/worker/package.json ./apps/worker/
+RUN npm install --ignore-scripts --omit=dev
+
+COPY --from=builder /app/packages/shared/dist ./packages/shared/dist
+COPY --from=builder /app/packages/db/dist ./packages/db/dist
+COPY --from=builder /app/apps/worker/dist ./apps/worker/dist
+
+CMD ["node", "apps/worker/dist/src/index.js"]
