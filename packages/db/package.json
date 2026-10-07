@@ -1,0 +1,25 @@
+{
+  "name": "@promotions/db",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "migrate": "ts-node -r tsconfig-paths/register src/migrate.ts"
+  },
+  "dependencies": {
+    "@promotions/shared": "*",
+    "drizzle-orm": "^0.30.10",
+    "mysql2": "^3.9.7",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "drizzle-kit": "^0.21.4"
+  }
+}

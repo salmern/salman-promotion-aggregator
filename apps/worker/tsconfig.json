@@ -4,7 +4,8 @@
     "rootDir": "src",
     "outDir": "dist",
     "paths": {
-      "@promotions/shared": ["../../packages/shared/src/index.ts"]
+      "@promotions/shared": ["../../packages/shared/src/index.ts"],
+      "@promotions/db": ["../../packages/db/src/index.ts"]
     }
   },
   "include": ["src"]
