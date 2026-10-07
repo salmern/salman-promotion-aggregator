@@ -1,0 +1,2441 @@
+<!DOCTYPE html><html lang="en" data-uw-w-loader=""><head>
+<meta charset="utf-8">
+<link rel="apple-touch-icon" sizes="180x180" href="/mimages/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/mimages/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/mimages/icons/favicon-16x16.png">
+<link rel="manifest" href="/mimages/icons/site.webmanifest">
+<link rel="mask-icon" href="/mimages/icons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#9f00a7">
+<meta name="theme-color" content="#ffffff">
+<meta name="application-name" content="The Promenade Shops at Briargate">
+<meta name="apple-mobile-web-app-title" content="The Promenade Shops at Briargate">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=AW-17417815974&amp;cx=c&amp;gtm=4e6a51"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-BGFX7HBRG5&amp;cx=c&amp;gtm=4e6a60h2"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5376MBZ"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/sonoma/main-v1764847577693.css">
+<script>
+$('document').ready(function(){
+const siteUrl = window.location.hostname;
+const links = Array.prototype.slice.call(document.querySelectorAll("a"), 0);
+links.forEach(function(element) {
+if ( element.href == "" || element.href.indexOf("javascript") > -1) {
+return;
+} else if ( element.href.indexOf(siteUrl.replace("www.", "")) > -1 ) {
+return;
+} else if ( element.href.indexOf(siteUrl) > -1 ) {
+if ( element.target.indexOf("javascript") > -1 || element.target.charAt(0) == "#" ) {
+return;
+} else {
+element.target = "";
+}
+} else {
+element.target = "_blank";
+element.rel = "noopener";
+}
+});
+});
+</script>
+
+<style type="text/css">
+					
+					.pwofile-magic-link-request-form input[type=checkbox] {
+						vertical-align: baseline;
+						display: inline;
+						float: none;
+						margin: 0 5px 0 0;
+						margin-bottom: 4px !important; 
+					}
+					.pwofile-magic-link-request-form input[type=submit] {
+						margin-bottom: 20px;
+					}
+					.pwofile-magic-link-request-form .fine-print {
+						font-size: 1.2rem;
+						line-height: 1.5;
+						margin-bottom: 20px;
+					}
+					.pwofile-magic-link-request-form .fine-print b { 
+						font-weight: normal;
+					}
+				</style>
+				<script type="text/javascript">
+					function handle_signup_login_toggler() {
+						if($('.pwofile-magic-link-request-form').hasClass('sign-up-state')) {
+							transition_to_log_in()
+						} else {
+							transition_to_sign_up()
+						}
+					}
+					function transition_to_log_in() {
+						$('.needed-for-login').show()
+						$('.needed-for-reg').hide().find('input[type=checkbox]').prop('required', false)
+						$('.signup-login-toggler').html($('.signup-login-toggler').attr('data-log-in-text'));
+						$('.pwofile-magic-link-request-form legend').text($('.pwofile-magic-link-request-form legend').attr('data-log-in-text'))
+						$('.pwofile-magic-link-request-form').removeClass('sign-up-state').addClass('log-in-state');
+						var subber = $('.pwofile-magic-link-request-form input[type=submit]');
+						subber.attr('data-up-text', subber.attr('data-up-text-log-in'));
+						subber.val(subber.attr('data-up-text'))
+					}
+					function transition_to_sign_up() {
+						$('.needed-for-login').hide()
+						$('.needed-for-reg').show().find('input[type=checkbox]').prop('required', true)
+						$('.signup-login-toggler').html($('.signup-login-toggler').attr('data-sign-up-text'));
+						$('.pwofile-magic-link-request-form legend').text($('.pwofile-magic-link-request-form legend').attr('data-sign-up-text'))
+						$('.pwofile-magic-link-request-form').addClass('sign-up-state').removeClass('log-in-state');
+						var subber = $('.pwofile-magic-link-request-form input[type=submit]');
+						subber.attr('data-up-text', subber.attr('data-up-text-sign-up'));
+						subber.val(subber.attr('data-up-text'))
+					}
+					$(function(){
+						if($('.signup-login-toggler').length) {
+							$('.signup-login-toggler').click(handle_signup_login_toggler).css({"cursor":"pointer"});
+							transition_to_sign_up() 
+						}
+					})
+				</script>
+<style>
+					.card {
+						width: calc(25% - 20px);
+						margin: 10px;
+						border: 5px solid lightGray;
+					}
+					@media(max-width: 1000px) {
+						.card {
+							width: calc(33.333% - 20px);
+						}
+					}
+					@media(max-width: 700px) {
+						.card {
+							width: calc(50% - 20px);
+						}
+					}
+					@media(max-width: 500px) {
+						.card {
+							width: calc(100% - 20px);
+							display: flex;
+						}
+						.directory .card .store-item {
+							flex: 0 0 90px;
+							position: relative;
+						}
+						.directory .card .store-item .component-store-follow {
+							z-index: 27;
+							top: -5px;
+							right: -5px;
+						}
+						.directory .card .store-item:hover img {
+							transform: unset;
+						}
+						.directory .card .store-item img {
+							top: unset;
+							left: unset;
+							aspect-ratio: unset !important;
+							transform: unset;
+							width: 100%;
+							display: block;
+							position: relative;
+							max-height: 70px;
+							max-width: 90px;
+							padding: 0;
+							z-index: 9;
+							filter: unset;
+							-webkit-filter: unset;
+							opacity: 1;
+						}
+						.store-grid .label-liner {
+							border: none;
+						}
+						.store-item .flag {
+							top: unset;
+							left: unset;
+							bottom: 0;
+							right: 0;
+							z-index: 18;
+						}
+
+					}
+					.label-part {
+						width: 100%;
+						border: 5px solid black;
+						height: 90px;
+						@media(max-width: 500px) {
+							border: none !important;
+						}
+					}
+					.label-liner {
+						background-color: black;
+						border: 1px solid white;
+						padding: 10px;
+						height: 100%;
+						text-align: center;
+					}
+					.store-grid .store-item {
+						width: 100%;
+					}
+					.store-grid .store-item:after {
+						padding-bottom: 77%;
+					}
+					.store-grid .store-item:hover img {
+						transform: translate(-50%, -50%) scale(1.05);
+					}
+					.store-grid .store-item img {
+						top: calc(50% - 50px);
+					}
+					.related-stores .card img {
+						/* position: absolute; */
+						/* top: 50%; */
+						/* left: 50%; */
+						/* transform: translate(-50%, -50%); */
+						width: 100%;
+						max-width: calc(100% - 80px);
+						max-height: calc(100% - 80px);
+						object-fit: contain;
+						padding: 10% 0;
+						transition: transform 666ms;
+					}
+					.related-stores .card:hover img {
+						transform: scale(1.05);
+					}
+
+
+					.card .component-store-follow {
+						top: 10px;
+						right: 10px;
+						left: unset;
+						transform: none;
+					}
+
+				</style>
+<style type="text/css">
+				
+				.screen-reader-only,
+				.visually-hidden {
+					position: absolute;
+					left: -10000px;
+					top: auto;
+					width: 1px;
+					height: 1px;
+					overflow: hidden;
+				}
+				
+				.visually-hidden:focus,
+				.visually-hidden a:focus {
+					position: static;
+					width: auto;
+					height: auto;
+				}
+				.screen-reader-only:focus {
+					top: 10px;
+					left: 10px;
+					width: auto;
+					height: auto;
+				}
+				
+				.screen-reader-only {
+					padding: 20px;
+					background-color: white;
+					border-radius: 4px;
+					z-index: 5555;
+					font-family: sans-serif;
+					font-size: 23px;
+				}
+
+				body {
+					margin: 0;
+				}
+				body:not(.home) .has-no-deco-hero {
+					padding-top: 40px; 
+				}
+			</style>
+<script type="text/javascript">
+				
+		function SEWsearchFormSubmit(terms) {
+			console.log('2024m - production')
+			terms = terms.replace(/[^a-zÀ-ÿ0-9 ]/gi, '')
+			terms = terms.replace(/(^\s+|\s+$)/g, '')
+			terms = terms.replace(/\s+/g, '%20')
+			if(terms.length > 2) {
+				console.log(terms)
+				
+					window.location.href = `https://${window.location.hostname}/search/all/${terms}/?q=${terms}`;
+				
+			} else {
+				console.log('search query too short');
+			}
+		}
+	
+			</script>
+<meta name="description" content="lululemon makes technical clothing for yoga, dancing, running, and most other sweaty pursuits. Our original intent is to create components for people to live longer, healthier, more fun lives.">
+
+<title>The Promenade Shops at Briargate :: lululemon</title>
+<meta property="business:contact_data:country_name" content="United States">
+<meta property="business:contact_data:locality" content="Colorado Springs">
+<meta property="business:contact_data:postal_code" content="80920">
+<meta property="business:contact_data:region" content="CO">
+<meta property="business:contact_data:street_address" content="1885 Briargate Parkway">
+<meta property="og:site_name" content="The Promenade Shops at Briargate">
+<meta property="og:title" content="lululemon at The Promenade Shops at Briargate">
+<meta property="og:type" content="business.business">
+<meta property="og:url" content="https://thepromenadeshopsatbriargate.com/stores/1036011-lululemon/">
+<script type="application/ld+json">{"priceRange":"$$","telephone":"+17195932958","@context":"http://schema.org/","@type":"Store","url":"https://thepromenadeshopsatbriargate.com/stores/1036011-lululemon/","@id":"https://thepromenadeshopsatbriargate.com/stores/1036011-lululemon/","name":"lululemon","description":"lululemon makes technical clothing for yoga, dancing, running, and most other sweaty pursuits. Our original intent is to create components for people to live longer, healthier, more fun lives.","address":{"postalCode":"80920","addressLocality":"Colorado Springs","@type":"PostalAddress","addressRegion":"CO","streetAddress":"1845 Briargate Parkway Suite 439","addressCountry":"United States"}}</script>
+<!-- Google Tag Manager -->
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5376MBZ');</script>
+
+<!-- End Google Tag Manager -->
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-P96XJ06HPY"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-P96XJ06HPY', { 'groups': ["master"] }); // pw_master
+	gtag('config', 'G-BGFX7HBRG5', { 'groups': ["actual"] }); // mpc db6717be
+
+</script>
+<!-- END Global site tag (gtag.js) -->
+<script src="https://cdn.placewise.com/assets/js/vendor/lodash/v3.8.0/lodash.min.js"></script>
+<script src="https://cdn.placewise.com/assets/js/vendor/moment/v2.24.0/moment.min.js"></script>
+<!-- Placewise Profile M2 -->
+						<style>.pwofile-glass {color: transparent; text-shadow: rgba(0,0,0,.3) 0 0 2px; filter: blur(5px);}.omodal.pwofile-required-fields-modal .omodal-container .omodal-footer {display:block!important;text-align:center;}</style>
+
+						<!-- tagstagstags {ts '2026-10-07 04:25:00'} -->
+						
+							<script type="text/javascript" src="https://cdn.placewise.com/assets/js/profile/v3.1.18/profile.min.js" defer=""></script>
+						
+
+						<script>
+							$(function() {
+								var pw_profile_routes = {
+									login_page: "/login/",
+									profile_page: "/profile/"
+								}
+
+								window.store_assist_data = {"deal_count_by_store_id":{"1036005":1,"1035973":1,"1036002":2,"1036001":2,"1036006":1,"1036008":6,"1035988":1,"1036000":6,"1036011":3,"1035999":2,"1035991":1,"1035960":3}}
+
+								// Make the profile object (with guard to prevent double initialization).
+								if (!window.pw_profile) {
+									window.pw_profile = new User_Profile(
+										555,
+										true,
+										pw_profile_routes,
+										{"alert_pwofile_SMS_number_already_in_use":"SMS number is already in use.","alert_pwofile_details_updated":"Your personal settings have been updated.","alert_pwofile_subscriptions_updated":"Your subscriptions have been updated.","error_wrong_password_settings":"The current password does not match this account. Please enter correct current password.","alert_pwofile_password_updated":"Your profile password has been updated.","error_bad_confirmation_token":"Sorry, but the confirmation link provided has expired. Please request a new one.","magic_link_request_success_modal":{"footer":"OK","heading":"Thanks!","body":"Check your email for a link to access your account. Make sure to check your spam folder if you don’t see it in your&nbsp;inbox."},"alert_pwofile_SMS_updated":"Profile SMS has been updated.","error_user_not_found":"Cannot find account with that email","alert_confirm_taking_to_long":"Sorry, this is taking so long. Please reload the page and try again.","error_passwords_mismatch":"Password does not match confirm password!","error_password_required":"Please fill out all password fields to change password"},
+										[1035991,1035999,1096493,1035968,1036001,1035959,1036009,1035969,1035963,1035975,1036000,1036002,1035965,1035987,1035995,1036005,1035981,1035958,1035980,1035957,1035962,1035982,1096490,1036011,1035992,1096491,1035970,1035977,1035984,1036012,1035986,1035983,1035966,1035989,1035973,1036003,1035971,1035985,1035976,1035988,1035996,1035967,1035993,1036007,1035998,1035960,1036008,1035994,1036006,1035964],
+										'US',
+										'CO',
+										[],
+										false, 
+										13,
+										false, 
+										{"Sports Equipment / Fitness":33486,"Entertainment / Movies":33477,"Men’s Shoes":1159,"Women’s Fashion":209,"Accessories / Handbags":33474,"Live Music Events":33484,"Events":33478,"Food & Beverage / Cooking":33480,"Travel / Luggage":33487,"Beauty / Wellness":33476,"Jewelry":91,"Kid’s Fashion & Shoes":33482,"House / Home Décor / Kitchenware":33481,"Art / Exhibitions / Museums":33475,"Women’s Shoes":234,"Men’s Fashion":276,"Medical / Health":33485},
+										[33870,43298,42403,43252],
+										
+										'https://placewise-api-integrations.eu.placewise.com',
+										
+										'the-promenade-shops-at-briargate'
+									);
+								} else {
+									console.warn('User_Profile already initialized, skipping duplicate instantiation');
+								}
+								
+							})
+						</script>
+<!-- si modals -->
+				
+
+
+			<style>
+				#standard-login-gate .heading {
+					color: white;
+					position: relative;
+					min-height: 80px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border-bottom: 10px solid var(--color-brand-secondary);
+				}
+				#standard-login-gate .modal-body {
+					background-color: #f5f5f5;
+					color: var(--base-font-color);
+					padding: 20px;
+				}
+				#standard-login-gate .pwofile-ingress {
+					max-width: 350px;
+					margin: 0 auto;
+				}
+				#standard-login-gate fieldset {
+					text-align: left;
+				}
+				#standard-login-gate legend {
+					font-family: var(--base-font-family-bold);
+					text-align: left;
+					margin-bottom: 20px;
+				}
+				#standard-login-gate input[type=email] {
+					margin-bottom: 20px;
+				}
+				#standard-login-gate input[type=submit] {
+					width: 100%;
+				}
+				#standard-login-gate label {
+					display: block;
+					line-height: 1.319;
+					margin-bottom: 20px;
+				}
+				#standard-login-gate .fine-print,
+				#standard-login-gate .needed-for-reg {
+					font-size: 14px;
+					text-align: left;
+					color: var(--base-font-color);
+				}
+				#standard-login-gate .fake-link,
+				#standard-login-gate .needed-for-reg a {
+					color: var(--base-font-color);
+					text-decoration: underline;
+				}
+				#standard-login-gate .needed-for-reg a:hover {
+					color: var(--color-brand-primary);
+				}
+			</style>
+			
+				
+				<style>
+					.mmodal[role=dialog][data-open] {
+						display: block;
+					}
+					.mmodal {
+						position: fixed;
+						top: 50%;
+						left: 0;
+						right: 0;
+						transform: translateY(-50%);
+						display: none;
+						overflow: visible;
+						max-height: calc(100% - 66px);
+						width: 100%;
+						max-width: 600px;
+						z-index: 9999999;
+						margin: 0 auto;
+						background-color: white;
+					}
+
+					.mmodal-close {
+						cursor: pointer;
+					}
+				</style>
+				<script>
+					$(function(){
+						
+						window.dialog = elect_dialog();
+						window.mmodal_overlay = document.getElementsByClassName('mmodal-overlay')[0];
+						window.mmodal_close = '';
+						openDialog()
+					})
+
+					function set_dialog(id) {
+						dialog = document.getElementsByClassName('mmodal').getElementById(id)
+					}
+					function elect_dialog() {
+						// don't show modals on certain paths
+						const is_home = window.location.pathname === '/'
+						if(window.location.pathname.match(/login|register|sitemap|profile/)) {
+							console.log(`modal suppressed on ${window.location.pathname}`)
+							return false
+						}
+						// var modals = Array.from(document.getElementsByClassName('mmodal'));
+						var modals = Array.from(document.querySelectorAll('.mmodal[data-rank]'));
+						if(modals.length) {
+							var modal_to_show = false;
+							// console.log('modals', modals)
+							modals.sort((a, b) => a.getAttribute('data-rank') - b.getAttribute('data-rank'));
+							// console.log('modals', modals)
+
+							const test_mode = new URLSearchParams(window.location.search).get('modal-test') || false;
+							if(test_mode) {
+								modal_to_show = modals[0]
+							} else {
+								modals.forEach(modal => {
+									if(modal_to_show) {
+										return
+									}
+									if( ! modal.getAttribute('data-rank')) {
+										return
+									}
+									// console.log('check for cookie')
+									const suppression_cookie_name = modal.getAttribute('data-suppress-if-cookie-exists') || false;
+									// console.log('check for cookie', suppression_cookie_name)
+									if(suppression_cookie_name) {
+										if(read_cookie(suppression_cookie_name)) {
+											// console.log(`already has ${suppression_cookie_name} cookie. suppressing`)
+											modal.remove()
+											return
+										}
+									}
+									const id = modal.getAttribute('id')
+									// console.log('modal id & cookie', id, read_cookie(id))
+									if(read_cookie(id)) {
+										// console.log('already shown modal ' + id)
+										modal.remove()
+										return
+									}
+									// todo if must show on homepage/or specific page....
+									// it has survived this vetting, so it is the chosen one
+									modal_to_show = modal
+								})
+							}
+						}
+						
+						return modal_to_show
+					}
+					function openDialog() {
+						if( ! dialog) {
+							console.log('no dialog set to be opened')
+							return
+						}
+						// first_input = dialog.getElementsByTagName('input')[0];
+						mmodal_overlay.addEventListener('click', closeDialog);
+						mmodal_close = dialog.getElementsByClassName("mmodal-close")[0];
+						mmodal_close.addEventListener('click', closeDialog);
+						mmodal_close.addEventListener('keydown', activate_close);
+
+						// also need the "OKay" button to close the dialog
+						mmodal_okay = dialog.querySelector(".mmodal-footer button");
+						if(mmodal_okay) {
+							mmodal_okay.addEventListener('click', closeDialog);
+							mmodal_okay.addEventListener('keydown', activate_close);
+						}
+
+						/* what?
+						mmodal_button = dialog.getElementsByTagName("button")[0];
+						mmodal_button.addEventListener('click', closeDialog);
+						mmodal_button.addEventListener('keydown', activate_close);
+						*/
+
+						dialog.setAttribute('data-open', '');
+						// console.log(first_input)
+						mmodal_close.focus()
+						mmodal_close.blur()
+						mmodal_overlay.style.display = 'block';
+						document.addEventListener('keydown', addESC);
+						// wall that tab key into our garden
+						var focusable_elements = getKeyboardFocusableElements(dialog)
+						focusable_elements[focusable_elements.length - 1].addEventListener('keydown', tab_back_to_top_of_garden)
+						if(dialog.getAttribute('data-rank') && dialog.getAttribute('id')) {
+							create_cookie(dialog.getAttribute('id'), 'shown', 30000000);
+						}
+						// todo track the event
+					}
+					function tab_back_to_top_of_garden(e) {
+						if (e.keyCode == 9) {
+							e.preventDefault();
+							mmodal_close.focus();
+						} 
+					}
+					function addESC(e) {
+						if (e.keyCode == 27) {
+							closeDialog();
+						} 
+					}
+					function activate_close(e) {
+						if (e.keyCode == 13) {
+							closeDialog();
+						} 
+					}
+
+					function closeDialog() {
+						if(dialog) {
+							dialog.removeAttribute('data-open');
+							mmodal_overlay.style.display = 'none';
+							document.removeEventListener('keydown', addESC);
+							// pyt focus back
+							
+							const skipper = document.getElementsByClassName('skip-navigation')[0]
+							skipper.focus()
+							skipper.blur()
+							// if it was an archetype, remove it.
+							if(dialog.getAttribute('class').indexOf('archetype') !== -1) {
+								dialog.remove()
+							}
+							// todo track the event
+						}
+					}
+
+					function Mmodal() {
+						this.alert = function(message_text, headline_text, ok_button_text='OK', classes='') {
+                            closeDialog()
+							window.dialog = document.querySelector('.mmodal.profile_archetype').cloneNode(true)
+							window.dialog.innerHTML = window.dialog.innerHTML.replace('HEADLINE', headline_text)
+							window.dialog.innerHTML = window.dialog.innerHTML.replace('MESSAGE', message_text)
+							window.dialog.innerHTML = window.dialog.innerHTML.replace('CTA', ok_button_text)
+							document.body.appendChild(window.dialog);
+							openDialog()
+						}
+						this.close = function() {
+							// if no arg, close any open modals
+							closeDialog()
+						}
+					}
+
+					window.omodal = new Mmodal();
+					console.log('window.omodal', window.omodal)
+
+					
+					function getKeyboardFocusableElements(element = document) {
+						return [
+							...element.querySelectorAll(
+								'a[href], button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])',
+							),
+						].filter(
+							el => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden'),
+						)
+					}
+					function create_cookie(name, value, milliseconds) {
+						var date = new Date();
+						if (milliseconds) {
+							date.setTime(date.getTime()+milliseconds);
+							var expires = "; expires="+date.toGMTString();
+						} else {
+							var expires = "";
+						}
+						
+							bits = document.domain.split('.');
+							tld = bits.pop();
+							cookieDomain = bits.pop() + '.' + tld;
+						
+						document.cookie = name+"="+value+expires+"; path=/; domain=." + cookieDomain + ';secure;SameSite=Strict';
+					}
+
+					function read_cookie(name) {
+						var nameEQ = name + "=";
+						var ca = document.cookie.split(';');
+						for(var i=0;i < ca.length;i++) {
+							var c = ca[i];
+							while (c.charAt(0)==' ') c = c.substring(1, c.length);
+							if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+						}
+						return null;
+					}
+				</script>
+			
+		
+
+
+			
+      <style>
+        .mmodal {
+          background-color: var(--color-brand-primary);
+          text-align: center;
+        }
+        .mmodal .mmodal-header {
+          position: relative;
+          font-family: var(--base-font-family);
+          font-size: 3rem;
+          color: white;
+          padding: 20px;
+          margin-bottom: 10px;
+        }
+        .mmodal .mmodal-body .major {
+          font-family: var(--base-font-family-alt);
+          font-size: 5.4rem;
+          line-height: 1.2;
+          color: #535250;
+        }
+        .mmodal .mmodal-body {
+          background-color: #ccc;
+          margin-bottom: 10px;
+          padding: 20px;
+        }
+        .mmodal .mmodal-body p {
+          font-size: 2.4rem;
+          line-height: 1.5;
+          color: #535250;
+        }
+        .mmodal .mmodal-header,
+        .mmodal .mmodal-footer {
+          padding: 20px;
+          background-color: #797875;
+        }
+        .mmodal .submit_button_wrapper {
+          margin-bottom: 20px;
+        }
+        .mmodal .fine-print {
+          font-size: 1.35rem;
+          color: white;
+        }
+        .mmodal .fine-print a {
+          text-decoration: underline;
+          color: currentColor;
+        }
+        .mmodal .mmodal-close {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 86px; 
+          height: 100%;
+          cursor: pointer;
+        }
+        .mmodal .mmodal-close svg {
+          position: absolute;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .mmodal .mmodal-close:hover svg {
+          opacity: 0.6;
+        }
+        @media(max-width:600px) {
+          .mmodal .mmodal-header {
+            font-size: 6vw;
+          }
+          .mmodal .mmodal-body .major {
+            font-size: 10.8vw;
+          }
+          .mmodal .mmodal-body p {
+            font-size: 4.8vw;
+          }
+        }
+      </style>
+<!-- sgomhtml -->
+      <style>
+        .operationalMessage {
+          position: sticky;
+          top: 0;
+          background-color: #c72626;
+          color: white;
+          z-index: 99999;
+          width: 100%;
+          text-align: center;
+          padding: 20px 0;
+          font-size: 20px;
+          line-height: 1.319;
+          letter-spacing: 0;
+          font-family: Arial, sans-serif;
+        }
+        @media(max-width: 700px) {
+          body .operationalMessage {
+            padding: 10px 0;
+          }
+          body .operationalMessage {
+            font-size: 16px;
+            gap: 10px;
+          }
+          body .operationalMessage svg {
+            flex: 0 0 48px;
+            width: 48px;
+          }
+        }
+        .operationalMessage .opmessage-content {
+          display: flex;
+          gap: 20px;
+          justify-content: center;
+          align-items: center;
+        }
+        .operationalMessage a {
+          color: white;
+          text-decoration: underline;
+        }
+        .operationalMessage a:hover {
+          color: yellow;
+        }
+        .operationalMessage svg {
+          fill: orange;
+          flex: 0 0 64px;
+        }
+
+      </style>
+      <script>
+        $(document).on('pw:operational_message_opening pw:operational_message_open', function(e, w) {
+          console.log(e.type);
+        });
+        
+        function init_op_mess() {
+          console.log('init_op_mess()')
+          const operational_message_test = new URLSearchParams(window.location.search).get('operational_message_test') !== null;
+          var data = {}
+          var content;
+          if(operational_message_test) {
+            data.operational_message_test = 1
+          }
+          $.get('/live_update/op_mess/', data, response => {
+            content = response.html || '';
+            inject_op_mess(content)
+          })
+        }
+        function inject_op_mess(content) {
+          if (content.length) {
+            var container = $('.opmessage-injection');
+            var config = container.data('config') || {};
+            console.log(`inject_op_mess(${content})`, config)
+            
+            config.attach_point = config.attach_point || 'body'
+            config.attach_method = config.attach_method || 'prependTo'
+            container.removeClass('opmessage-injection')
+            .addClass('operationalMessage')
+            .addClass('operationalMessage-start')
+            .detach();
+
+            container.find('.message').html(content);
+
+            $(document).trigger('pw:operational_message_opening', config);
+            container[config.attach_method](config.attach_point)
+            .css('display', 'block')
+            .removeClass('operationalMessage-start')
+            setTimeout(
+              function() {
+                $(document).trigger('pw:operational_message_open', config);
+              },
+              200
+            );
+          }
+        }
+        $(init_op_mess)
+      </script><script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script><script id="usercentrics-cmp" src="https://app.usercentrics.eu/browser-ui/latest/loader.js" data-settings-id="7_PB1v3aXGMpQP" async=""></script></head>
+<body class="store detail mpc sonoma user-not-logged-in end-user-not-logged-in"><div class="outer-wrapper">
+<div class="inner-wrapper">
+<div class="reveal-wrapper">
+<div class="wrapper" style="position: relative;">
+<a href="#main-content" class="skip-navigation screen-reader-only">Skip to main content</a>
+<style>
+.content.wrap {
+padding-top: 99px;
+}
+.home .content.wrap {
+padding-top: 100px;
+}
+.mini-nav .content.wrap {
+padding-top: 0;
+}
+body:not(.home) .content.wrap.has-no-deco-hero {
+padding-top: 99px;
+}
+.tato .content.wrap {
+padding-top: 74px;
+}
+.tato.home .content.wrap {
+padding-top: 75px;
+}
+.tato:not(.home) .content.wrap.has-no-deco-hero {
+padding-top: 74px;
+}
+.tato.mini-nav.home .content.wrap {
+padding-top: 75px;
+}
+.desktop-banner-holder {
+position: relative;
+}
+.desktop-banner-holder > .page-width-maintainer {
+z-index: 50;
+}
+.desktop-banner-holder nav li {
+white-space: nowrap;
+font-size: 1.6rem;
+text-transform: uppercase;
+}
+.desktop-banner-holder nav > ul > li {
+height: 100px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.desktop-banner-holder svg {
+fill: currentColor;
+}
+.desktop-banner-holder nav .item:not([itemprop]) {
+flex: 1 0 auto;
+}
+.desktop-banner-holder nav .pw-nav-logo {
+width: 100%;
+max-width: 250px;
+height: auto;
+padding: 20px 0;
+margin: 0 auto;
+}
+.desktop-banner-holder nav .mall-logo img {
+width: 100%;
+height: auto;
+display: block;
+max-width: 250px;
+max-height: 60px;
+object-fit: contain;
+object-position: center;
+}
+.desktop-banner-holder ul.drop {
+position: absolute;
+top: calc(100% - 1px);
+background-color: var(--color-brand-primary);
+margin: 0;
+padding: 0;
+text-align: left;
+transition: opacity 333ms, transform 333ms;
+visibility: hidden;
+}
+.desktop-banner-holder ul.drop li {
+text-align: left;
+}
+.desktop-banner-holder ul.drop li a {
+text-transform: none;
+display: block;
+padding: 18px 20px;
+}
+.desktop-banner-holder ul.drop li:hover {
+background-color: white;
+}
+.desktop-banner-holder ul.drop li:hover a {
+color: var(--color-brand-primary);
+}
+.mobile-header-container .flex-holder.profile {
+min-width: 64px;
+}
+.mobile-header-container .mall-logo {
+height: 75px;
+}
+.mobile-header-container .mall-logo img {
+height: 100%;
+}
+.search-container.flyout {
+display: block !important;
+visibility: hidden;
+position: absolute;
+top: calc(100% + 0px);
+width: 104vw;
+padding: 10px;
+background-color: #00000066;
+}
+</style>
+<script>
+function _nav_show(element) {
+// console.log('_nav_show()')
+if(element.hasClass('flyout')) {
+// always show the flyouts, right?
+} else if($(element).closest('.desktop-banner-holder').length) {
+// don't allow this showing if we are on mobile.
+} else {
+return
+}
+// console.log('clearing outer_timeouts', $(element).attr('t'))
+clearTimeout($(element).attr('t'));
+element.css({
+opacity: 1,
+visibility: 'visible',
+transform: 'translateY(0)',
+display: 'block'
+})
+}
+function _nav_hide(element) {
+// console.log('_nav_hide()')
+if(element.hasClass('flyout')) {
+// always show the flyouts, right?
+} else if($(element).closest('.desktop-banner-holder').length) {
+// don't allow this if we are on mobile.
+} else {
+return
+}
+// clear timeouts to restart timers
+// console.log('clearing outer_timeouts for restarts', $(element).attr('t'))
+clearTimeout($(element).attr('t'));
+element.outer_timeout = setTimeout(function() {
+// console.log('actually hiding')
+element.css({
+opacity: 0,
+transform: 'translateY(-40px)'
+})
+element.timeout = setTimeout(function() {
+element.css({
+visibility: 'hidden',
+display: 'none'
+})
+}, 333)
+}, 333)
+$(element).attr('t', element.outer_timeout)
+// console.log('setting outer_timeout')
+}
+</script>
+<!-- layouts: sonoma header -->
+<div class="header-wrapper">
+<header role="banner" class="header-banner">
+<div class="desktop-banner-holder">
+<div class="banner-liner">
+<div class="page-width-maintainer">
+<div class="nav-wrapper">
+<!-- Rogale Świętomarcińskie -->
+<nav itemscope="" role="navigation" itemtype="http://schema.org/SiteNavigationElement" class="primary"><ul aria-label="Primary Navigation" class="primary n9items"><li class="item non-text-holder my-mallified-wrapper"><style>
+.open-my-mall.icon:hover svg .knockout {
+fill: currentColor;
+}
+.open-my-mall.icon:hover svg .head-shoulders {
+fill: white;
+}
+</style>
+<div class="couer open-my-mall icon" aria-haspopup="true" aria-expanded="false" aria-controls="my-mall" aria-label="My Mall Login Flyout Control- open or close" tabindex="0">
+<!-- couer gpis -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" xml:space="preserve" fill="currentColor">
+<path class="knockout" fill="transparent" d="M52.4,7.5c-1.8-0.7-3.7-1.1-5.6-1.1c-3.8,0-7.4,1.4-10.1,4.1L34.2,13L32,15.1L29.8,13l-2.5-2.5l0,0 C24.6,7.8,21,6.4,17.2,6.4c-1.9,0-3.8,0.4-5.6,1.1c-1.8,0.8-3.5,1.9-4.9,3.3C4,13.6,2.6,17.3,2.6,21.2s1.7,7.5,4.5,10.3l0,0l0,0 L32,56.4l24.9-24.9l0,0l0,0c2.8-2.7,4.4-6.3,4.5-10.3c0.1-3.9-1.4-7.6-4.1-10.4C55.9,9.4,54.2,8.3,52.4,7.5z"></path>
+<g class="head-shoulders">
+<circle cx="32" cy="25.4" r="6.2"></circle>
+<path d="M39.6,33.1h-1.2c-3.6,3.4-9.2,3.4-12.8,0h-1.2c-2.9,0-5.2,2.3-5.2,5.2v5.2L32,56.3l12.9-12.9v-5.2 C44.9,35.4,42.5,33.1,39.6,33.1z"></path>
+</g>
+<path class="frame" d="M58.3,9.7C51.8,3,41.1,2.8,34.4,9.3L32,11.7l-2.4-2.4l0,0C22.9,2.8,12.2,3,5.7,9.7c-6.5,6.7-6.3,17.4,0.4,23.9 L32,59.4l25.8-25.8C64.6,27.1,64.7,16.4,58.3,9.7z M55.8,31.5L55.8,31.5L55.8,31.5L32,55.3L8.2,31.5l0,0l0,0 c-2.7-2.6-4.2-6.1-4.3-9.8c-0.1-3.7,1.3-7.3,3.9-10c1.3-1.4,2.9-2.5,4.7-3.2c1.7-0.7,3.5-1.1,5.4-1.1c3.6,0,7.1,1.4,9.7,3.9 l2.4,2.4l2.1,2.1l2.1-2.1l2.4-2.4c2.6-2.5,6-3.9,9.7-3.9c1.9,0,3.7,0.4,5.4,1.1c1.8,0.7,3.3,1.8,4.7,3.2c2.6,2.7,4,6.2,3.9,10 C60,25.4,58.5,28.9,55.8,31.5z"></path>
+</svg>
+</div>
+<!-- papillon 2024 -->
+<div class="my-mall pwofile-placard flyout deal-count-placard pwofile-placard-papillon" style="display:none" t="39">
+<div style="display:none" id="logged_in_nav-with-deals" class="profile-placard-section">
+<div class="major">Hey there, VIP</div>
+<div class="minor">You have <span class="deal-number">some</span> new <span class="deal-item-name">deals</span> waiting for you</div>
+<div class="cta">
+<a href="/sales/#My-Deals" class="btn mutton"><span>View My Deals</span></a>
+</div>
+<div class="minor">
+<a class="edit-link" href="/profile/#personal-settings"><span>Edit Profile</span></a>
+</div>
+</div>
+<div style="display:none" id="logged_in_nav" class="profile-placard-section">
+<div class="major">Hey there, VIP<br>Start Saving Now</div>
+<div class="minor">Click below to follow your favorite stores and then watch the savings&nbsp;grow!</div>
+<div class="cta">
+<a href="/profile/#stores" class="btn mutton"><span>View My Stores</span></a>
+</div>
+</div>
+<div class="loggedout provisional profile-placard-section">
+<div class="major">Become a<br>Promenade Shops at Briargate VIP</div>
+<div class="minor">Follow your favorite stores and be the first to know about sales, events, and&nbsp;more!</div>
+<div class="cta">
+<a href="/profile/" class="btn mutton"><span>Start Saving Today</span></a>
+</div>
+</div>
+</div></li><li aria-expanded="false" itemprop="name" aria-label="Shop" class="item drop-parent"><a href="/directory/" itemprop="url" id="EF2C4F51" aria-haspopup="true" tabindex="0" aria-expanded="false"><span>Shop</span></a><ul class="n2items drop s" aria-labelledby="EF2C4F51" t="40"><li itemprop="name" class="item"><a href="/directory/" itemprop="url"><span>By Category</span></a></li><li itemprop="name" class="item"><a href="/directory-map/" itemprop="url"><span>Directory Map</span></a></li></ul></li><li aria-expanded="false" itemprop="name" aria-label="Dine" class="item drop-parent"><a href="/directory/#All-Restaurants" itemprop="url" id="A34CE95A" aria-haspopup="true" tabindex="0" aria-expanded="false"><span>Dine</span></a><ul class="n2items drop s" aria-labelledby="A34CE95A" t="41"><li itemprop="name" class="item"><a href="/restaurant-menus/" itemprop="url"><span>Restaurant Menus</span></a></li><li itemprop="name" class="item"><a href="/directory/#All-Restaurants" itemprop="url"><span>Restaurant Directory</span></a></li></ul></li><li itemprop="name" class="item"><a href="/sales/" itemprop="url"><span>Deals</span></a></li><li class="item non-text-holder mall-logo-wrapper">
+<div class="mall-logo pw-nav-logo" itemscope="" itemtype="http://schema.org/Organization" role="presentation">
+<a itemprop="url" href="/" title="Click to return to the home page."><span>
+<span class="visually-hidden">The Promenade Shops at Briargate home page</span>
+<style>
+.mall-logo img {
+width: auto;
+object-fit: contain;
+object-position: center;
+min-height: 65px;
+}
+</style>
+<img itemprop="logo" style="display:block" src="https://cdn-files.eu.placewise.com/f/CNCMPRCREhoTY21zX2NvbXBvbmVudF9pbWFnZSIaaWQtMTc2MzU4MDY4NzUyOC0zMjE0LWxvZ284rP6jTeHHEmAyiNQA92MGr1t4Gwk" alt="">
+</span></a>
+</div>
+</li><li aria-expanded="false" itemprop="name" aria-label="Events" class="item drop-parent"><a href="/events/" itemprop="url" id="841C189E" aria-haspopup="true" tabindex="0" aria-expanded="false"><span>Events</span></a><ul class="n2items drop s" aria-labelledby="841C189E" t="42"><li itemprop="name" class="item"><a href="/events/" itemprop="url"><span>Events</span></a></li><li itemprop="name" class="item"><a href="/event-videos/" itemprop="url"><span>Event Videos</span></a></li></ul></li><li aria-expanded="false" itemprop="name" aria-label="Info" class="item drop-parent"><a href="/about-us/" itemprop="url" id="9C5D158F" aria-haspopup="true" tabindex="0" aria-expanded="false"><span>Info</span></a><ul class="n7items drop s" aria-labelledby="9C5D158F" t="43"><li itemprop="name" class="item"><a href="/about-us/" itemprop="url"><span>About Us</span></a></li><li itemprop="name" class="item"><a href="/directions/" itemprop="url"><span>Directions</span></a></li><li itemprop="name" class="item"><a href="/hours/" itemprop="url"><span>Mall Hours</span></a></li><li itemprop="name" class="item"><a href="/jobs/" itemprop="url"><span>Employment</span></a></li><li itemprop="name" class="item"><a href="/leasing/" itemprop="url"><span>Leasing</span></a></li><li itemprop="name" class="item"><a href="/opportunities/" itemprop="url"><span>Sponsorship</span></a></li><li itemprop="name" class="item"><a href="/register/" itemprop="url"><span>Email Club</span></a></li></ul></li><li itemprop="name" class="item"><a href="/trends/colorado-springs-co/" itemprop="url"><span>Buzz</span></a></li><li class="item non-text-holder search"><!-- search_v2023! -->
+<div class="search-icon icon" aria-haspopup="true" aria-controls="main-nav-search-flyout" tabindex="0" aria-expanded="false">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="picon icon -var-www-legacy-com-icons-search-magnifying-glass color-by-fill" version="1.1" viewBox="0 0 64 64" x="0px" xml:space="preserve" y="0px" tabindex="-1" fill="currentColor"><path d="M51.4,26.2c0,5.6-1.8,10.7-4.8,14.9l15.3,15.3c1.5,1.5,1.5,4,0,5.5c-1.5,1.5-4,1.5-5.5,0L41.1,46.5 c-4.2,3.1-9.3,4.8-14.9,4.8C12.3,51.4,1,40.1,1,26.2S12.3,1,26.2,1S51.4,12.3,51.4,26.2z M26.2,43.6c9.6,0,17.4-7.8,17.4-17.4 S35.8,8.7,26.2,8.7S8.7,16.5,8.7,26.2S16.6,43.6,26.2,43.6z"></path></svg>
+</div>
+<div class="search-container flyout" style="display: none; left: -1241.34px;" id="main-nav-search-flyout" t="44">
+<form class="search SEWsearchForm" id="search" action="javascript:void(0);" role="search">
+<div class="search-form-wrapper" style="position:relative;">
+<input type="search" class="search-field" placeholder="Search" id="7a6b7180" aria-label="Search" autocomplete="off" tabindex="-1">
+<button value="Submit" class="search-submit" type="submit" aria-label="Submit" tabindex="-1">
+<svg id="search-icon" class="search-icon" viewBox="0 0 24 24">
+<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+<path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</button>
+<ul class="pw-search-suggestions" role="listbox" style="display:none;position:absolute;top:100%;left:0;right:0;list-style:none;margin:0;padding:0;z-index:9999;max-height:300px;overflow-y:auto;"></ul>
+</div>
+</form>
+</div>
+<style>
+#main-nav-search-flyout .pw-search-suggestions { background: #fff; border: 1px solid rgba(0,0,0,.2); box-shadow: 0 2px 6px rgba(0,0,0,.15); font-family: system-ui, -apple-system, sans-serif; font-size: 14px; }
+#main-nav-search-flyout .pw-search-suggestions li { padding: 4px 8px; cursor: default; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
+#main-nav-search-flyout .pw-search-suggestions li:hover { background: #1967d2; color: #fff; }
+</style>
+<script>
+$(function() {
+function getSuggestions(val) {
+var datalist = document.getElementById('search_completion_suggestions');
+if (!datalist || !val) return [];
+var lower = val.toLowerCase();
+return Array.from(datalist.options)
+.map(function(o) { return o.value; })
+.filter(function(v) { return v.toLowerCase().indexOf(lower) !== -1; });
+}
+/* delegated — survives nav cloning and DOM moves */
+$(document).on('input', '.SEWsearchForm .search-field', function() {
+var $list = $(this).closest('.search-form-wrapper').find('.pw-search-suggestions');
+var suggestions = getSuggestions($(this).val());
+$list.empty();
+if (suggestions.length) {
+suggestions.forEach(function(s) {
+$('<li>').attr('role', 'option').text(s).appendTo($list);
+});
+$list.show();
+} else {
+$list.hide();
+}
+});
+/* mousedown fires before blur — preventDefault keeps input focused */
+$(document).on('mousedown', '.pw-search-suggestions li', function(e) {
+e.preventDefault();
+var val = $(this).text();
+$(this).closest('.SEWsearchForm').find('.search-field').val(val);
+$(this).closest('.pw-search-suggestions').hide();
+SEWsearchFormSubmit(val);
+});
+/* hide on click outside — avoids blur firing when scrolling the list */
+$(document).on('mousedown', function(e) {
+if (!$(e.target).closest('.SEWsearchForm').length) {
+$('.pw-search-suggestions').hide();
+}
+});
+$(document).on('keydown', '.SEWsearchForm .search-field', function(e) {
+if (e.keyCode === 27) {
+$(this).closest('.search-form-wrapper').find('.pw-search-suggestions').hide();
+}
+});
+});
+</script>
+<!-- tcboo! --><datalist id="search_completion_suggestions"><option value="aerie"></option><option value="Altar’d State"></option><option value="American Eagle"></option><option value="Anthony Vince’ Nail Spa"></option><option value="Anthropologie"></option><option value="Apple"></option><option value="Arhaus"></option><option value="Athleta"></option><option value="AT&amp;T"></option><option value="Bad Daddy’s Burger Bar"></option><option value="Bath &amp; Body Works"></option><option value="Brighton Collectibles"></option><option value="Chico’s"></option><option value="Claire’s"></option><option value="Evereve"></option><option value="Fabletics"></option><option value="Face Foundrie"></option><option value="Fjallraven"></option><option value="Free People"></option><option value="Hairdressing Co."></option><option value="J.Jill"></option><option value="Jos. A. Bank Clothiers"></option><option value="L.L. Bean"></option><option value="lululemon"></option><option value="Management Office"></option><option value="Mendocino Farms"></option><option value="Menya Ramen &amp; Poke"></option><option value="My Neighbor Felix"></option><option value="Omaha Steaks"></option><option value="PANDORA"></option><option value="Panera Bread"></option><option value="Paper Source"></option><option value="Paris Market Vintage"></option><option value="P.F. Chang’s China Bistro"></option><option value="Pottery Barn"></option><option value="Purple"></option><option value="Qdoba Mexican Grill"></option><option value="Rocky Mountain Chocolate"></option><option value="Seoul BBQ"></option><option value="Sephora"></option><option value="Soma"></option><option value="Starbucks"></option><option value="Ted’s Montana Grill"></option><option value="Tradehome Shoes"></option><option value="ULTA Beauty"></option><option value="Victoria’s Secret"></option><option value="Warby Parker"></option><option value="White House Black Market"></option><option value="Williams-Sonoma"></option><option value="Woodhouse Spa"></option></datalist></li></ul></nav>
+<!-- nav cached at 4:25 AM -->
+</div>
+</div>
+</div>
+</div>
+<div class="mobile-header-container">
+<div class="banner-liner">
+<div class="rest-holder">
+<div class="flex-holder profile">
+<style>
+.open-my-mall.icon:hover svg .knockout {
+fill: currentColor;
+}
+.open-my-mall.icon:hover svg .head-shoulders {
+fill: white;
+}
+</style>
+<div class="couer open-my-mall icon" aria-haspopup="true" aria-expanded="false" aria-controls="my-mall" aria-label="My Mall Login Flyout Control- open or close" tabindex="-1">
+<!-- couer gpis -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" xml:space="preserve" fill="currentColor">
+<path class="knockout" fill="transparent" d="M52.4,7.5c-1.8-0.7-3.7-1.1-5.6-1.1c-3.8,0-7.4,1.4-10.1,4.1L34.2,13L32,15.1L29.8,13l-2.5-2.5l0,0 C24.6,7.8,21,6.4,17.2,6.4c-1.9,0-3.8,0.4-5.6,1.1c-1.8,0.8-3.5,1.9-4.9,3.3C4,13.6,2.6,17.3,2.6,21.2s1.7,7.5,4.5,10.3l0,0l0,0 L32,56.4l24.9-24.9l0,0l0,0c2.8-2.7,4.4-6.3,4.5-10.3c0.1-3.9-1.4-7.6-4.1-10.4C55.9,9.4,54.2,8.3,52.4,7.5z"></path>
+<g class="head-shoulders">
+<circle cx="32" cy="25.4" r="6.2"></circle>
+<path d="M39.6,33.1h-1.2c-3.6,3.4-9.2,3.4-12.8,0h-1.2c-2.9,0-5.2,2.3-5.2,5.2v5.2L32,56.3l12.9-12.9v-5.2 C44.9,35.4,42.5,33.1,39.6,33.1z"></path>
+</g>
+<path class="frame" d="M58.3,9.7C51.8,3,41.1,2.8,34.4,9.3L32,11.7l-2.4-2.4l0,0C22.9,2.8,12.2,3,5.7,9.7c-6.5,6.7-6.3,17.4,0.4,23.9 L32,59.4l25.8-25.8C64.6,27.1,64.7,16.4,58.3,9.7z M55.8,31.5L55.8,31.5L55.8,31.5L32,55.3L8.2,31.5l0,0l0,0 c-2.7-2.6-4.2-6.1-4.3-9.8c-0.1-3.7,1.3-7.3,3.9-10c1.3-1.4,2.9-2.5,4.7-3.2c1.7-0.7,3.5-1.1,5.4-1.1c3.6,0,7.1,1.4,9.7,3.9 l2.4,2.4l2.1,2.1l2.1-2.1l2.4-2.4c2.6-2.5,6-3.9,9.7-3.9c1.9,0,3.7,0.4,5.4,1.1c1.8,0.7,3.3,1.8,4.7,3.2c2.6,2.7,4,6.2,3.9,10 C60,25.4,58.5,28.9,55.8,31.5z"></path>
+</svg>
+</div>
+</div>
+<div class="flex-holder logo">
+<div class="mall-logo " itemscope="" itemtype="http://schema.org/Organization" role="presentation">
+<a itemprop="url" href="/" title="Click to return to the home page." tabindex="-1">
+<span class="visually-hidden">The Promenade Shops at Briargate home page</span>
+<style>
+.mall-logo img {
+width: auto;
+object-fit: contain;
+object-position: center;
+min-height: 65px;
+}
+</style>
+<img itemprop="logo" style="display:block" src="https://cdn-files.eu.placewise.com/f/CNCMPRCREhoTY21zX2NvbXBvbmVudF9pbWFnZSIaaWQtMTc2MzU4MDY4NzUyOC0zMjE0LWxvZ284rP6jTeHHEmAyiNQA92MGr1t4Gwk" alt="">
+</a>
+</div>
+</div>
+<div class="flex-holder hamburger">
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" class="murger murger-sigma" width="64" height="64" fill="none" stroke="currentColor" stroke-width="6">
+<g transform="scale(0.666)" transform-origin="50%">
+<path class="murger-sigma-long" d="M46,20H18s-11.65,1-7.56-4.74C12.32,12.63,21.5,21.5,21.5,21.5l21,21"></path>
+<path class="murger-sigma-long" d="M46,44H18s-11.65-.78-7.56,4.93c1.88,2.62,11.06-6.25,11.06-6.25l21-21"></path>
+<line class="murger-sigma-short" x2="46" y2="32" x1="32" y1="32"></line>
+<line class="murger-sigma-short" x2="18" y2="32" x1="32" y1="32"></line>
+</g>
+</svg>
+<style type="text/css">
+.murger {
+width: 100%;
+height: auto;
+stroke-miterlimit: 0;
+stroke-linecap: round;
+stroke-linejoin: round;
+cursor: pointer;
+display: block;
+}
+.murger-sigma .murger-sigma-long {
+stroke-dasharray: 28 60;
+}
+.murger-sigma .murger-sigma-short {
+stroke-dasharray: 16 20;
+stroke-dashoffset: 0;
+}
+@keyframes show_closeable_sigma_long {
+from {
+stroke-dashoffset: 0;
+stroke-dasharray: 28 60;
+}
+to {
+stroke-dashoffset: -54;
+stroke-dasharray: 30 61;
+}
+}
+@keyframes show_openable_sigma_long {
+from {
+stroke-dashoffset: -54;
+stroke-dasharray: 30 61;
+}
+to {
+stroke-dashoffset: 0;
+stroke-dasharray: 28 60;
+}
+}
+@keyframes show_closeable_sigma_short {
+from {
+stroke-dashoffset: 0;
+}
+to {
+stroke-dashoffset: 16;
+}
+}
+@keyframes show_openable_sigma_short {
+from {
+stroke-dashoffset: 16;
+}
+to {
+stroke-dashoffset: 0;
+}
+}
+.murger-sigma-short.show-closeable-sigma {
+animation: show_closeable_sigma_short 1s forwards;
+}
+.murger-sigma-short.show-openable-sigma {
+animation: show_openable_sigma_short 1s forwards;
+}
+.murger-sigma-long.show-closeable-sigma {
+animation: show_closeable_sigma_long 1s forwards;
+}
+.murger-sigma-long.show-openable-sigma {
+animation: show_openable_sigma_long 1s forwards;
+}
+</style>
+<script type="text/javascript">
+$('.murger').click(murger_toggle);
+function murger_toggle() {
+// what state are we in?
+if($('html').hasClass('open-nav')) {
+murger_close()
+} else {
+$('html').addClass('open-nav');
+_murger_show_closeable()
+}
+}
+function murger_close() {
+$('html').removeClass('open-nav');
+$('header.header-banner	.mobile-nav .item').removeClass('active');
+_murger_show_openable()
+}
+function _murger_show_closeable() {
+// console.log('transitioning to the closeable view.')
+var items = document.querySelectorAll('svg.murger-sigma .murger-sigma-long, svg.murger-sigma .murger-sigma-short');
+for(let x=0; x<items.length; x++) {
+// console.log(x, items[x])
+items[x].classList.remove('show-openable-sigma');
+items[x].classList.add('show-closeable-sigma');
+}
+}
+function _murger_show_openable() {
+// console.log('transitioning to the openable view.')
+var items = document.querySelectorAll('svg.murger-sigma .murger-sigma-long, svg.murger-sigma .murger-sigma-short');
+for(let x=0; x<items.length; x++) {
+// console.log(x, items[x])
+items[x].classList.remove('show-closeable-sigma');
+items[x].classList.add('show-openable-sigma');
+}
+}
+$(window).on('window:resize window:orientationchange', murger_close)
+</script>
+</div>
+</div>
+</div>
+<nav itemscope="" role="navigation" itemtype="http://schema.org/SiteNavigationElement" class="primary"><div class="search-container" style="display: block; left: -1241.34px; right: unset; top: unset; bottom: unset; background-color: transparent; visibility: visible; position: relative;" id="main-nav-search-flyout">
+<form class="search SEWsearchForm" id="search" action="javascript:void(0);" role="search">
+<div class="search-form-wrapper" style="position:relative;">
+<input type="search" class="search-field" placeholder="Search" id="7a6b7180" aria-label="Search" autocomplete="off">
+<button value="Submit" class="search-submit" type="submit" aria-label="Submit">
+<svg id="search-icon" class="search-icon" viewBox="0 0 24 24">
+<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+<path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</button>
+<ul class="pw-search-suggestions" role="listbox" style="display:none;position:absolute;top:100%;left:0;right:0;list-style:none;margin:0;padding:0;z-index:9999;max-height:300px;overflow-y:auto;"></ul>
+</div>
+</form>
+</div><ul aria-label="Primary Navigation" class="primary n9items"><li aria-expanded="false" itemprop="name" aria-label="Shop" class="item drop-parent"><a href="/directory/" itemprop="url" id="EF2C4F51" aria-haspopup="true" tabindex="0"><span>Shop</span></a><ul class="n2items drop s" aria-labelledby="EF2C4F51"><li itemprop="name" class="item"><a href="/directory/" itemprop="url"><span>By Category</span></a></li><li itemprop="name" class="item"><a href="/directory-map/" itemprop="url"><span>Directory Map</span></a></li></ul></li><li aria-expanded="false" itemprop="name" aria-label="Dine" class="item drop-parent"><a href="/directory/#All-Restaurants" itemprop="url" id="A34CE95A" aria-haspopup="true" tabindex="0"><span>Dine</span></a><ul class="n2items drop s" aria-labelledby="A34CE95A"><li itemprop="name" class="item"><a href="/restaurant-menus/" itemprop="url"><span>Restaurant Menus</span></a></li><li itemprop="name" class="item"><a href="/directory/#All-Restaurants" itemprop="url"><span>Restaurant Directory</span></a></li></ul></li><li itemprop="name" class="item"><a href="/sales/" itemprop="url"><span>Deals</span></a></li><li aria-expanded="false" itemprop="name" aria-label="Events" class="item drop-parent"><a href="/events/" itemprop="url" id="841C189E" aria-haspopup="true" tabindex="0"><span>Events</span></a><ul class="n2items drop s" aria-labelledby="841C189E"><li itemprop="name" class="item"><a href="/events/" itemprop="url"><span>Events</span></a></li><li itemprop="name" class="item"><a href="/event-videos/" itemprop="url"><span>Event Videos</span></a></li></ul></li><li aria-expanded="false" itemprop="name" aria-label="Info" class="item drop-parent"><a href="/about-us/" itemprop="url" id="9C5D158F" aria-haspopup="true" tabindex="0"><span>Info</span></a><ul class="n7items drop s" aria-labelledby="9C5D158F"><li itemprop="name" class="item"><a href="/about-us/" itemprop="url"><span>About Us</span></a></li><li itemprop="name" class="item"><a href="/directions/" itemprop="url"><span>Directions</span></a></li><li itemprop="name" class="item"><a href="/hours/" itemprop="url"><span>Mall Hours</span></a></li><li itemprop="name" class="item"><a href="/jobs/" itemprop="url"><span>Employment</span></a></li><li itemprop="name" class="item"><a href="/leasing/" itemprop="url"><span>Leasing</span></a></li><li itemprop="name" class="item"><a href="/opportunities/" itemprop="url"><span>Sponsorship</span></a></li><li itemprop="name" class="item"><a href="/register/" itemprop="url"><span>Email Club</span></a></li></ul></li><li itemprop="name" class="item"><a href="/trends/colorado-springs-co/" itemprop="url"><span>Buzz</span></a></li></ul></nav><div class="my-mall pwofile-placard flyout deal-count-placard pwofile-placard-papillon" style="display: none; right: 10px; width: calc(-40px + 100vw);">
+<div style="display:none" id="logged_in_nav-with-deals" class="profile-placard-section">
+<div class="major">Hey there, VIP</div>
+<div class="minor">You have <span class="deal-number">some</span> new <span class="deal-item-name">deals</span> waiting for you</div>
+<div class="cta">
+<a href="/sales/#My-Deals" class="btn mutton"><span>View My Deals</span></a>
+</div>
+<div class="minor">
+<a class="edit-link" href="/profile/#personal-settings"><span>Edit Profile</span></a>
+</div>
+</div>
+<div style="display:none" id="logged_in_nav" class="profile-placard-section">
+<div class="major">Hey there, VIP<br>Start Saving Now</div>
+<div class="minor">Click below to follow your favorite stores and then watch the savings&nbsp;grow!</div>
+<div class="cta">
+<a href="/profile/#stores" class="btn mutton"><span>View My Stores</span></a>
+</div>
+</div>
+<div class="loggedout provisional profile-placard-section">
+<div class="major">Become a<br>Promenade Shops at Briargate VIP</div>
+<div class="minor">Follow your favorite stores and be the first to know about sales, events, and&nbsp;more!</div>
+<div class="cta">
+<a href="/profile/" class="btn mutton"><span>Start Saving Today</span></a>
+</div>
+</div>
+</div><div class="my-mall pwofile-placard flyout deal-count-placard pwofile-placard-papillon" style="display: none; right: 10px; width: calc(-40px + 100vw);">
+<div style="display:none" id="logged_in_nav-with-deals" class="profile-placard-section">
+<div class="major">Hey there, VIP</div>
+<div class="minor">You have <span class="deal-number">some</span> new <span class="deal-item-name">deals</span> waiting for you</div>
+<div class="cta">
+<a href="/sales/#My-Deals" class="btn mutton"><span>View My Deals</span></a>
+</div>
+<div class="minor">
+<a class="edit-link" href="/profile/#personal-settings"><span>Edit Profile</span></a>
+</div>
+</div>
+<div style="display:none" id="logged_in_nav" class="profile-placard-section">
+<div class="major">Hey there, VIP<br>Start Saving Now</div>
+<div class="minor">Click below to follow your favorite stores and then watch the savings&nbsp;grow!</div>
+<div class="cta">
+<a href="/profile/#stores" class="btn mutton"><span>View My Stores</span></a>
+</div>
+</div>
+<div class="loggedout provisional profile-placard-section">
+<div class="major">Become a<br>Promenade Shops at Briargate VIP</div>
+<div class="minor">Follow your favorite stores and be the first to know about sales, events, and&nbsp;more!</div>
+<div class="cta">
+<a href="/profile/" class="btn mutton"><span>Start Saving Today</span></a>
+</div>
+</div>
+</div></div>
+</header>
+</div>
+<div class="content wrap has-deco-hero" style="position: relative; z-index: 99">
+<style>
+.deco-hero {
+margin-bottom: 40px;
+}
+.deco-hero figure {
+position: relative;
+margin: 0 auto;
+max-width: 1920px;
+}
+.deco-hero .deco-hero-overlay {
+position: absolute;
+inset: 0;
+/* background: linear-gradient(180deg, transparent, black); */
+opacity: 0.6;
+z-index: 5;
+}
+.deco-hero .copy-wrapper {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+font-size: 60px;
+font-family: var(--base-font-family-alt);
+z-index: 55;
+width: 100%;
+/* height: 100%; */
+text-align: center;
+padding: 20px;
+}
+.deco-hero img {
+max-height: 335px;
+min-height: 300px;
+/* aspect-ratio: 2.686567164179; */
+object-fit: cover;
+object-position: center;
+display: block;
+width: 100%;
+max-width: 1920px;
+}
+/* @media(min-width:1920px) {
+.deco-hero img {
+aspect-ratio: unset;
+}
+} */
+/* @media(max-width:1920px) {
+.deco-hero img {
+width: auto !important;
+}
+} */
+/* @media(max-width:900px) {
+.deco-hero img {
+aspect-ratio: 1;
+}
+} */
+.deco-hero .copy-wrapper {
+width: 100%;
+max-width: 1220px;
+padding: 0 20px;
+margin: 0 auto;
+}
+</style>
+<div class="deco-hero" role="presentation">
+<div class="deco-hero-liner">
+<figure>
+<!-- cari -->
+<picture>
+<source srcset="https://cdn-files.eu.placewise.com/f/CNCMPRCREhoTY21zX2NvbXBvbmVudF9pbWFnZSIVaWQtMTc2MzU5MDg3MDAyMi03MzMxOIfOpE2tN8rFq8SzfzGjuhpqdVUg?transform=resize=width:500,height:500,fit:crop/compress 500w" media="(max-width:500px)">
+<source srcset="https://cdn-files.eu.placewise.com/f/CNCMPRCREhoTY21zX2NvbXBvbmVudF9pbWFnZSIVaWQtMTc2MzU5MDg3MDAyMi03MzMxOIfOpE2tN8rFq8SzfzGjuhpqdVUg?transform=resize=width:900,height:335,fit:crop/compress 900w" media="(max-width:900px)">
+<source srcset="https://cdn-files.eu.placewise.com/f/CNCMPRCREhoTY21zX2NvbXBvbmVudF9pbWFnZSIVaWQtMTc2MzU5MDg3MDAyMi03MzMxOIfOpE2tN8rFq8SzfzGjuhpqdVUg?transform=resize=width:1920,height:335,fit:crop/compress 1920w">
+<img style="width:100%; display:block" src="https://cdn-files.eu.placewise.com/f/CNCMPRCREhoTY21zX2NvbXBvbmVudF9pbWFnZSIVaWQtMTc2MzU5MDg3MDAyMi03MzMxOIfOpE2tN8rFq8SzfzGjuhpqdVUg?transform=resize=width:1920,height:335,fit:crop/compress" alt="">
+</picture>
+</figure>
+</div>
+</div>
+<main id="main-content">
+<div class="section store-container">
+<div class="page-width-maintainer">
+<div class="store-container-component">
+<style>
+.store.detail .flexie {
+display: flex;
+justify-content: space-between;
+column-gap: 80px;
+row-gap: 40px;
+align-items: flex-start;
+}
+.store.detail .flexie .component-store-info {
+min-width: 300px;
+max-width: 330px;
+width: 100%;
+flex: 1 1 auto;
+/* background-color: white; I added a conditional logo class that will turn it white if needed. (sonoma) */
+}
+@media(max-width: 700px) {
+.store.detail .flexie {
+flex-wrap: wrap;
+}
+.store.detail .flexie .component-store-info {
+max-width: unset;
+}
+}
+</style>
+<style>
+.store-map-container-component {
+margin-bottom: 40px;
+}
+.super-flexie {
+display: flex;
+gap: 2vw;
+}
+.hero-side,
+.logo-side {
+flex: 0 1 33%;
+border: 2px solid dimGray;
+aspect-ratio: 4/3;
+position: relative;
+}
+.logo-side img {
+position: absolute;
+width: 100%;
+height: auto;
+object-fit: contain;
+max-width: calc(100% - 8vw);
+max-height: calc(100% - 8vw);
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+.hero-side img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+margin: 0 !important;
+}
+.map-side {
+border: 2px solid dimGray;
+flex: 1 1 auto;
+}
+@media(min-width: 1200px) {
+.logo-side img {
+max-width: calc(100% - 80px);
+max-height: calc(100% - 80px);
+}
+}
+@media(max-width: 500px) {
+.super-flexie {
+flex-wrap: wrap;
+}
+.super-flexie > * {
+flex: 1 1 100%;
+}
+.logo-side img {
+width: calc(100% - 24vw);
+}
+}
+.logo-side.store-item {
+cursor: default;
+}
+.hero-side .component-store-follow,
+.logo-side .component-store-follow {
+position: absolute;
+top: 10px;
+right: 10px;
+left: unset;
+transform: none;
+z-index: 5;
+cursor: pointer;
+}
+</style>
+<div class="store-map-container-component">
+<div class="super-flexie">
+<div class="logo-side store-item">
+<style>
+.store-item {
+cursor: pointer;
+}
+.component-store-follow {
+position: absolute;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+z-index: 5;
+cursor: pointer;
+}
+.component-store-follow input {
+display: none;
+}
+.component-store-follow svg {
+transition: all 400ms ease-in-out;
+}
+.component-store-follow svg path {
+transition: fill 1s ease-in-out;
+}
+.component-store-follow input:checked + svg path.heart {
+fill: inherit;
+}
+.store-item:hover svg {
+transform: scale(1.4) rotateZ(11deg);
+}
+</style>
+<div class="component-heartable component-store-follow store-follow-grid-follow-button" d="sk" data-store-id="1036011">
+<label>
+<span class="visually-hidden">Follow</span>
+<input type="checkbox" class="affinity-actual" id="Store-1036011">
+<svg version="1.1" class="affinity affinity-heart" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" width="48" height="48" xml:space="preserve" fill="#c72626" stroke="#c72626">
+<path class="heart" fill="white" stroke-width="1.5" stroke-linecap="round" stroke-miterlimit="10" d="M32,48.5 c-0.1,0-0.3,0-0.3-0.1c-0.5-0.4-12.2-10.8-14.7-16c-1.1-2.3-1.2-5-0.4-7.4c0.7-2,2.1-3.6,3.9-4.5c1.2-0.6,2.6-0.9,4-0.9 c3.1,0,6,1.5,7.3,3.8l0.2,0.3l0.2-0.3c1.3-2.3,4.2-3.8,7.3-3.8c1.4,0,2.8,0.3,4,0.9c1.8,0.9,3.2,2.4,3.9,4.5 c0.9,2.4,0.7,5.1-0.4,7.4c-2.5,5.2-14,15.4-14.7,16C32.3,48.4,32.2,48.5,32,48.5C32,48.5,32,48.5,32,48.5z"></path>
+</svg>
+</label>
+</div>
+<picture>
+<source srcset="https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNjAxMTi_28ZWExX889l8IbGEG8-HrfZePw?transform=output=format:webp,density:500/resize=width:200,height:200,fit:clip/compress,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNjAxMTi_28ZWExX889l8IbGEG8-HrfZePw?transform=output=format:webp,density:500/resize=width:400,height:400,fit:clip/compress 2x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNjAxMTi_28ZWExX889l8IbGEG8-HrfZePw?transform=output=format:webp,density:500/resize=width:600,height:600,fit:clip/compress 3x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNjAxMTi_28ZWExX889l8IbGEG8-HrfZePw?transform=output=format:webp,density:500/resize=width:800,height:800,fit:clip/compress 4x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNjAxMTi_28ZWExX889l8IbGEG8-HrfZePw?transform=output=format:webp,density:500/resize=width:1000,height:1000,fit:clip/compress 5x">
+<img src="https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNjAxMTi_28ZWExX889l8IbGEG8-HrfZePw?transform=output=format:webp,density:500/resize=width:200,height:200,fit:clip/compress" alt="lululemon" class="store-logo">
+</picture>
+</div>
+<div class="map-side">
+<link href="https://d1p5cqqchvbqmy.cloudfront.net/web2/release/mappedin-web.css" rel="stylesheet">
+<div class="interactive-map" style="position:relative; height: 100%; min-height: 200px;">
+<div id="mappedin-minimap" data-fallback-src="https://cdn-files.eu.placewise.com/psc/HinesGlobal/briargate/images/ThePromenadeShopsatBriargarte_2022_MabryCampbell_71.jpg?auto=format&amp;w=800&amp;h=400&amp;fit=crop&amp;crop=entropy" style="display: block; position: relative; inset: 0px; width: 100%; height: 100%; cursor: pointer; border: 0px; background-image: url(&quot;https://cdn-files.eu.placewise.com/psc/HinesGlobal/briargate/images/ThePromenadeShopsatBriargarte_2022_MabryCampbell_71.jpg?auto=format&amp;w=800&amp;h=400&amp;fit=crop&amp;crop=entropy&quot;); background-size: cover;"><a target="_blank" id="location-link" style="display:block;position:relative; top:0; right:0; bottom:0; left:0; width:100%; height:100%; cursor:pointer; border:0" aria-label="Expand map" href="/directory-map/#/profile?location=1036011/profile?location=1036011&amp;origCtx=minimap"><iframe style="display:block;position:relative; top:0; right:0; bottom:0; left:0; width:100%; height:100%; cursor:pointer; border:0;pointer-events:none" title="Minimap"></iframe></a></div>
+<script type="text/javascript">
+// for (const key in document) if (key.startsWith('on')) document.addEventListener(key.slice(2), console.log);
+window.onerror = function myErrorHandler(err, url, line) {
+//Do some stuff
+console.log('woops') // Uncaught SyntaxError: Invalid or unexpected token at Line no:- 1
+console.log(err) // Uncaught SyntaxError: Invalid or unexpected token at Line no:- 1
+return false; // so you still log errors into console
+}
+window.mappedin = {
+clientId: "641ca9e7e2009c001c07cd5c",
+clientSecret: "s43U1GVYciCdWU1DC8bCfZabqTVjkasPpywkZSCZu1cWmJ6W",
+venue: "placewise-the-promenade-shops-at-briargate",
+locationId: "1036011",
+fullMapUrl: "/directory-map/#/profile?location=1036011",
+webAppVersion: "v2",
+zoom: 3
+};
+</script>
+<script src="https://d1p5cqqchvbqmy.cloudfront.net/minimap/release/minimap.js" type="text/javascript"></script>
+<script type="text/javascript">
+(function() {
+const fallback_src = $('#mappedin-minimap').attr('data-fallback-src') || false;
+if(fallback_src) {
+$('#mappedin-minimap').css({
+'background-image': `url(${fallback_src})`,
+'background-size': 'cover',
+'height': '100%'
+})
+}
+})()
+</script>
+</div>
+</div>
+</div>
+</div>
+<!-- hxftw -->
+<h1 class="head1 pageheader shop-highlight">lululemon</h1>
+<!-- osom -->
+<div class="flexie">
+<!-- gshb -->
+<header class="component-store-description">
+<div class="store-description wysiwyg rh-wysiwyg">
+<p>lululemon makes technical clothing for yoga, dancing, running, and most other sweaty pursuits. Our original intent is to create components for people to live longer, healthier, more fun lives.</p>
+</div>
+</header>
+<!-- gsmb() mpcsk -->
+<!-- gsdb()! -->
+<div class="component-store-info">
+<ul class="s n5items">
+<style>
+.component-store-info svg {
+width: 45px;
+}
+.component-store-info.has-logo-item {
+background-color: white;
+}
+.component-store-info .follow-suite svg,
+.store.detail .component-store-info .follow-suite svg.icon {
+display: inline;
+width: unset;
+height: unset;
+}
+</style>
+<!-- Logo188 -->
+<!-- logo shown elsewhere -->
+<!-- Hours: -->
+<li class="hours-item">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="picon icon -var-www-legacy-com-icons-store-data-hours color-by-fill" version="1.1" viewBox="0 0 64 64" x="0px" xml:space="preserve" y="0px" tabindex="-1" fill="currentColor"><circle cx="32" cy="32" fill="none" r="31" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></circle><polyline fill="none" points="32.1,18.5 32.1,32.3 24.9,41.1" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline><circle cx="32.1" cy="32.3" r="1.9"></circle><circle cx="32" cy="32" fill="none" r="17.7" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></circle></svg>
+<dl class="s">
+<dt>
+Hours:
+</dt>
+<dd>
+<ul class="opening-hours general s">
+<li><span class="label"><time>Mon</time>&nbsp;–⁠&nbsp;<time>Sat</time>:&nbsp;</span><span class="value"><time datetime="10:00">10am</time>&nbsp;–⁠&nbsp;<time datetime="20:00">8pm</time></span></li><li><span class="label">Sun:&nbsp;</span><span class="value"><time datetime="11:00">11am</time>&nbsp;–⁠&nbsp;<time datetime="18:00">6pm</time></span></li>
+</ul></dd>
+</dl>
+</li>
+<!-- Phone: -->
+<li class="phone-item">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="picon icon -var-www-legacy-com-icons-store-data-phone color-by-fill" version="1.1" viewBox="0 0 64 64" x="0px" xml:space="preserve" y="0px" tabindex="-1" fill="currentColor"><g><circle cx="32" cy="32" fill="none" r="31" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></circle><g><path d="M48,42.3 c-0.1-0.6-0.5-1.1-1.1-1.5l-7.1-4.8c-0.4-0.2-0.8-0.4-1.2-0.4c-0.7,0-1.3,0.3-1.7,0.9L35,39c-0.1,0.1-0.2,0.3-0.2,0.4 c-0.1,0-0.4,0.1-0.7,0.1c-0.9,0-2.7-0.4-5.4-3.1c-3.3-3.3-4.7-5.6-4.4-7.2c0.1-0.1,0.3-0.1,0.4-0.2l2.5-1.9c0.9-0.7,1.1-2,0.4-2.9 l-5.1-6.9c-1-1.3-2.1-1.5-3.3-0.4c-0.8,0.7-2.1,2.3-2.6,3.2c-0.3,0.5-0.4,1-0.4,1.6c-0.2,0.8-0.6,3.1,0.1,6.2 c0.9,4.3,3.4,8.5,7.4,12.4c6.7,6.5,12.6,7.4,15.5,7.4c1.7,0,2.9-0.3,3.4-0.5c0.5,0,1-0.1,1.5-0.4c1-0.6,2.5-1.9,3.2-2.7 C47.9,43.5,48.1,42.9,48,42.3z" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path><path d="M42.1,32.3 c-1.6-5-5.5-8.9-10.5-10.4" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path><path d="M46.8,32.6 c-1.4-7.5-7-13.4-14.4-15.2" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path></g></g></svg>
+<dl class="s">
+<dt>Phone:</dt>
+<dd><a href="tel:+17195932958" itemprop="phone" target="_blank" rel="noopener">(719) 593-2958</a></dd>
+</dl>
+</li>
+<!-- Website: -->
+<li class="link-item">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="picon icon -var-www-legacy-com-icons-store-data-website color-by-fill" version="1.1" viewBox="0 0 64 64" x="0px" xml:space="preserve" y="0px" tabindex="-1" fill="currentColor"><g><g><circle cx="32" cy="32" fill="none" r="31" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></circle></g><g><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5" x1="14.3" x2="49.7" y1="32" y2="32"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5" x1="32" x2="32" y1="14.4" y2="49.6"></line><path d="M31.2,49.7 c-5.3-4-8.7-10.4-8.7-17.7c0-7.2,3.4-13.7,8.7-17.7" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path><path d="M32.7,49.7 c5.3-4,8.7-10.4,8.7-17.7c0-7.2-3.4-13.7-8.7-17.7" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path><circle cx="32" cy="32" fill="none" r="18" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></circle><path d="M45.6,20.7 c-3.7,2.6-8.4,4.2-13.6,4.2c-5.2,0-10-1.6-13.7-4.2" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path><path d="M45.6,43.2 C41.9,40.6,37.2,39,32,39c-5.2,0-10,1.6-13.7,4.2" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path></g></g></svg>
+<dl class="s">
+<dt>Website:</dt>
+<dd><a href="https://shopstyle.it/l/uLiD" class="external_link ext_retailer " rel="noopener" onclick="pw_ga.add_event({'category':'external retailer link','action':'click','label':'lululemon'});" target="_blank">View Website »</a></dd>
+</dl>
+</li>
+<!-- Location: -->
+<li class="location-item">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="picon icon -var-www-legacy-com-icons-store-data-location color-by-fill" version="1.1" viewBox="0 0 64 64" x="0px" xml:space="preserve" y="0px" tabindex="-1" fill="currentColor"><g><circle cx="32" cy="32" fill="none" r="31" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></circle><g><path d="M32,16 c-6.2,0-11.3,5-11.3,11.3c0,1.7,0.4,3.3,1.1,4.8c3.4,7.8,9.8,15.4,9.8,15.4L32,48l0.4-0.5c0.1-0.1,6.4-7.7,9.8-15.4 c0.7-1.5,1.1-3.2,1.1-4.8C43.3,21,38.2,16,32,16z" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path><path d="M32,22.6 c-2.5,0-4.6,2-4.6,4.6c0,2.5,2,4.6,4.6,4.6c2.5,0,4.6-2,4.6-4.6C36.6,24.6,34.5,22.6,32,22.6z" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path></g></g></svg>
+<dl class="s">
+<dt>Location:</dt>
+<dd>
+1845 Briargate Parkway | Suite 439
+<br>
+<a href="/directory-map/#/profile?location=1036011" class="read-more" tabindex="0">View Directory Map</a>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div><!--close store-container -->
+<div class="section store-deals">
+<div class="page-width-maintainer">
+<div class="store-deals-component">
+<style>
+.pwomo-flow-v2024 {
+column-count: 2;
+column-gap: 40px;
+}
+.pwomo-flow-v2024 .deal-row {
+break-inside: avoid;
+/* for safari which has column issues: */
+display: inline-table;
+width: 100%;
+}
+@media(max-width: 900px) {
+.pwomo-flow-v2024 {
+column-count: unset;
+}
+}
+</style>
+<!-- hxftw -->
+<h2 class="sub1">More from lululemon</h2>
+<div class="pwomo-flow-v2024">
+<div class="the-flow-wrapper loaded">
+
+
+
+<div class="deal-row" data-alpha="lululemon" data-start="46301.53689" data-end="46310.53698" data-store-id="1036011" data-collection-id="1013483">
+<a href="/deals/3488380/">
+<div class="deal-flexie">
+<div class="deal-image">
+<div class="deal-image-wrapper">
+<img src="https://cdn-files.eu.placewise.com/f/CNCMPRCREhoLb2ZmZXJfaW1hZ2UiBzM0ODgzODAqATE4mM2tWvi-H1U2iqFIDdGaOO5f0U0" alt="Introducing: Smooth Spacer">
+</div>
+</div>
+<div class="deal-meta">
+<div class="major">Introducing: Smooth Spacer</div>
+<div class="minor motice motice--ends-outside-week">Ends 10/15</div>
+<div class="minor">lululemon</div>
+</div>
+</div>
+</a>
+</div><div class="deal-row" data-alpha="lululemon" data-start="46301.53686" data-end="46313.53698" data-store-id="1036011" data-collection-id="1013483">
+<a href="/deals/3495686/">
+<div class="deal-flexie">
+<div class="deal-image">
+<div class="deal-image-wrapper">
+<img src="https://cdn-files.eu.placewise.com/f/CNCMPRCREhoLb2ZmZXJfaW1hZ2UiBzM0OTU2ODYqATE4tdG9WqF2UR2eBzwGwlh7q16nLdc" alt="The Art of Easy Layering">
+</div>
+</div>
+<div class="deal-meta">
+<div class="major">The Art of Easy Layering</div>
+<div class="minor motice motice--ends-outside-week">Ends 10/18</div>
+<div class="minor">lululemon</div>
+</div>
+</div>
+</a>
+</div><div class="deal-row" data-alpha="lululemon" data-start="46301.53685" data-end="46314.53698" data-store-id="1036011" data-collection-id="1013483">
+<a href="/deals/3496918/">
+<div class="deal-flexie">
+<div class="deal-image">
+<div class="deal-image-wrapper">
+<img src="https://cdn-files.eu.placewise.com/f/CNCMPRCREhoLb2ZmZXJfaW1hZ2UiBzM0OTY5MTgqATE4sfTCWg3--MUPbO43Py8ZM0sCZko" alt="Iconically Plush Puffers">
+</div>
+</div>
+<div class="deal-meta">
+<div class="major">Iconically Plush Puffers</div>
+<div class="minor motice motice--ends-outside-week">Ends 10/19</div>
+<div class="minor">lululemon</div>
+</div>
+</div>
+</a>
+</div></div>
+<script type="text/javascript">
+function sort_tiles(field_name) {
+if(typeof field_name === 'object') {
+var target = $(field_name.target);
+field_name = target.val();
+}
+field_name = field_name || localStorage.getItem('pwomo_flow_sort', field_name) || 'ending';
+var p = '';
+if(field_name === 'alphabetically') {
+the_flow.find('.deal-row').sort(function (a, b) {
+p += 'a';
+return $(a).attr('data-alpha').localeCompare($(b).attr('data-alpha'));
+}).appendTo(the_flow);
+} else if(field_name === 'recent') {
+the_flow.find('.deal-row').sort(function (a, b) {
+p += 's';
+return parseFloat($(a).attr('data-start')) - parseFloat($(b).attr('data-start'));
+}).appendTo(the_flow);
+} else if(field_name === 'ending') {
+the_flow.find('.deal-row').sort(function (a, b) {
+p += 'e';
+return parseFloat($(a).attr('data-end')) - parseFloat($(b).attr('data-end'));
+}).appendTo(the_flow);
+}
+// console.log(p)
+localStorage.setItem('pwomo_flow_sort', field_name);
+// also update the ui to show since this may not have been triggered by the UI.
+$('#sort-selector').val(field_name).trigger('change.select2');
+};
+// var $tileFilter = $('.js-tile-filter');
+var the_flow = $('.the-flow-wrapper');
+var sorter = $('.js-tile-sort');
+sorter.on('change', sort_tiles);
+$(function(){
+sort_tiles();
+the_flow.addClass('loaded');
+});
+</script>
+</div>
+</div>
+</div>
+</div><!--close store-deals -->
+<div class="section featured-stores">
+<div class="page-width-maintainer">
+<style>
+.related-stores .card {
+margin: 0 20px 20px 0;
+display: inline-block;
+background-color: white;
+position: relative;
+width: calc(calc(100% - 78px) / 4);
+vertical-align: top;
+}
+.related-stores a:last-of-type .card {
+margin-right: 0;
+}
+.related-stores .card img {
+width: calc(100% - 80px);
+margin: 0 auto;
+}
+@media(max-width: 900px) {
+.related-stores.n4items a:nth-of-type(3) {
+display: none;
+}
+.related-stores .card {
+width: calc(calc(100% - 55px) / 3)
+}
+}
+@media(max-width: 650px) {
+.related-stores.n4items a:nth-of-type(3) {
+display: inline;
+}
+.related-stores.n4items a:nth-of-type(2) .card {
+margin-right: 0;
+}
+.related-stores .card {
+width: calc(calc(100% - 33px) / 2)
+}
+}
+@media(max-width: 500px) {
+.related-stores .card {
+width: 100%;
+display: flex;
+align-items: center;
+}
+.related-stores .card .label-liner {
+text-align: left;
+}
+.related-stores .card .label-liner .minor {
+white-space: normal;
+}
+.related-stores .card .store-item {
+flex: 1 1 150px;
+height: 100px;
+position: relative;
+border: none;
+flex: 1 1 150px;
+}
+.component-store-follow {
+z-index: 27;
+}
+.related-stores .card img {
+width: calc(100% - 20px);
+max-width: unset;
+max-height: unset;
+}
+.related-stores .card .flag {
+top: unset;
+right: unset;
+bottom: 0;
+left: 0;
+}
+}
+</style>
+<div class="featured-stores-component">
+<!-- hxftw -->
+<h2 class="sub1">More Stores You Might Like</h2>
+<div class="related-stores n4items">
+<!-- ghost with suppressable flags -->
+<a href="/stores/1035965-chicos/" tabindex="0" aria-label="Chico’s">
+<div class="card js-alpha-c js-cat-apparel-men-and-women js-cat-womens-apparel js-cat-now-open js-cat-jewelry js-cat-accessories js-cat-petites js-siid-1035965" data-store-id="1035965">
+<div class="store-item js-store-item">
+<picture>
+<source srcset="https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2NTjR1uJFlft-qMmn2NU4RXadaYDW5Q?transform=output=format:webp,density:500/resize=width:200,height:200,fit:clip/compress,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2NTjR1uJFlft-qMmn2NU4RXadaYDW5Q?transform=output=format:webp,density:500/resize=width:400,height:400,fit:clip/compress 2x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2NTjR1uJFlft-qMmn2NU4RXadaYDW5Q?transform=output=format:webp,density:500/resize=width:600,height:600,fit:clip/compress 3x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2NTjR1uJFlft-qMmn2NU4RXadaYDW5Q?transform=output=format:webp,density:500/resize=width:800,height:800,fit:clip/compress 4x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2NTjR1uJFlft-qMmn2NU4RXadaYDW5Q?transform=output=format:webp,density:500/resize=width:1000,height:1000,fit:clip/compress 5x">
+<img src="https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2NTjR1uJFlft-qMmn2NU4RXadaYDW5Q?transform=output=format:webp,density:500/resize=width:200,height:200,fit:clip/compress" alt="Chico’s" class="store-logo" style="object-fit: contain; aspect-ratio: 1">
+</picture>
+</div>
+<div class="label-part">
+<div class="label-liner">
+<div class="major">
+Chico’s
+</div>
+</div>
+</div>
+</div>
+</a>
+<!-- ghost with suppressable flags -->
+<a href="/stores/1035960-victorias-secret/" tabindex="0" aria-label="Victoria’s Secret">
+<div class="card js-alpha-v js-cat-bath-health-and-beauty js-cat-apparel-men-and-women js-cat-specialty js-cat-womens-apparel js-cat-now-open store-has-deals js-siid-1035960" data-store-id="1035960">
+<div class="store-item js-store-item">
+<picture>
+<source srcset="https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2MDjC1uJFlHR6jQBMrxxcsI6firgWIA?transform=output=format:webp,density:500/resize=width:200,height:200,fit:clip/compress,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2MDjC1uJFlHR6jQBMrxxcsI6firgWIA?transform=output=format:webp,density:500/resize=width:400,height:400,fit:clip/compress 2x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2MDjC1uJFlHR6jQBMrxxcsI6firgWIA?transform=output=format:webp,density:500/resize=width:600,height:600,fit:clip/compress 3x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2MDjC1uJFlHR6jQBMrxxcsI6firgWIA?transform=output=format:webp,density:500/resize=width:800,height:800,fit:clip/compress 4x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2MDjC1uJFlHR6jQBMrxxcsI6firgWIA?transform=output=format:webp,density:500/resize=width:1000,height:1000,fit:clip/compress 5x">
+<img src="https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk2MDjC1uJFlHR6jQBMrxxcsI6firgWIA?transform=output=format:webp,density:500/resize=width:200,height:200,fit:clip/compress" alt="Victoria’s Secret" class="store-logo" style="object-fit: contain; aspect-ratio: 1">
+</picture>
+<div class="flag">Sale</div>
+</div>
+<div class="label-part">
+<div class="label-liner">
+<div class="major">
+Victoria’s Secret
+</div>
+</div>
+</div>
+</div>
+</a>
+<!-- ghost with suppressable flags -->
+<a href="/stores/1035991-aerie/" tabindex="0" aria-label="aerie">
+<div class="card js-alpha-a js-cat-womens-apparel store-has-deals js-siid-1035991" data-store-id="1035991">
+<div class="store-item js-store-item">
+<picture>
+<source srcset="https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5MTiR1-JFJyM_DA2xVonqZXysuqaKwQ?transform=output=format:webp,density:500/resize=width:200,height:200,fit:clip/compress,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5MTiR1-JFJyM_DA2xVonqZXysuqaKwQ?transform=output=format:webp,density:500/resize=width:400,height:400,fit:clip/compress 2x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5MTiR1-JFJyM_DA2xVonqZXysuqaKwQ?transform=output=format:webp,density:500/resize=width:600,height:600,fit:clip/compress 3x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5MTiR1-JFJyM_DA2xVonqZXysuqaKwQ?transform=output=format:webp,density:500/resize=width:800,height:800,fit:clip/compress 4x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5MTiR1-JFJyM_DA2xVonqZXysuqaKwQ?transform=output=format:webp,density:500/resize=width:1000,height:1000,fit:clip/compress 5x">
+<img src="https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5MTiR1-JFJyM_DA2xVonqZXysuqaKwQ?transform=output=format:webp,density:500/resize=width:200,height:200,fit:clip/compress" alt="aerie" class="store-logo" style="object-fit: contain; aspect-ratio: 1">
+</picture>
+<div class="flag">Sale</div>
+</div>
+<div class="label-part">
+<div class="label-liner">
+<div class="major">
+aerie
+</div>
+</div>
+</div>
+</div>
+</a>
+<!-- ghost with suppressable flags -->
+<a href="/stores/1035999-altard-state/" tabindex="0" aria-label="Altar’d State">
+<div class="card js-alpha-a js-cat-womens-apparel store-has-deals js-siid-1035999" data-store-id="1035999">
+<div class="store-item js-store-item">
+<picture>
+<source srcset="https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5OTil1-JFRiBm-1OPd_3reJ94cUv05Q?transform=output=format:webp,density:500/resize=width:200,height:200,fit:clip/compress,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5OTil1-JFRiBm-1OPd_3reJ94cUv05Q?transform=output=format:webp,density:500/resize=width:400,height:400,fit:clip/compress 2x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5OTil1-JFRiBm-1OPd_3reJ94cUv05Q?transform=output=format:webp,density:500/resize=width:600,height:600,fit:clip/compress 3x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5OTil1-JFRiBm-1OPd_3reJ94cUv05Q?transform=output=format:webp,density:500/resize=width:800,height:800,fit:clip/compress 4x,
+https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5OTil1-JFRiBm-1OPd_3reJ94cUv05Q?transform=output=format:webp,density:500/resize=width:1000,height:1000,fit:clip/compress 5x">
+<img src="https://cdn-files.eu.placewise.com/f/CNCMPRoKc3RvcmVfbG9nbyIHMTAzNTk5OTil1-JFRiBm-1OPd_3reJ94cUv05Q?transform=output=format:webp,density:500/resize=width:200,height:200,fit:clip/compress" alt="Altar’d State" class="store-logo" style="object-fit: contain; aspect-ratio: 1">
+</picture>
+<div class="flag">Sale</div>
+</div>
+<div class="label-part">
+<div class="label-liner">
+<div class="major">
+Altar’d State
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div><!--close featured-stores -->
+</main>
+</div>
+<style>
+footer {
+background-color: black;
+color: white;
+box-shadow: 0 7px 30px 0 #4a4a4a;
+}
+footer a {
+color: white;
+}
+footer a:hover {
+color: white;
+text-decoration: underline;
+}
+footer > .page-width-maintainer {
+padding-top: 50px;
+padding-bottom: 50px;
+display: flex;
+justify-content: space-between;
+column-gap: 40px;
+}
+footer .divider-x {
+width: 1px;
+background-color: currentColor;
+opacity: 0.333;
+}
+footer .third.bravo {
+text-align: center;
+}
+footer .third.charlie {
+text-align: right;
+}
+footer .third .major {
+text-transform: uppercase;
+font-size: 2.4rem;
+line-height: 1.125;
+margin-bottom: 30px;
+}
+footer .follow-suite {
+margin-bottom: 30px;
+}
+.post-footer {
+padding-bottom: 72px;
+}
+.post-footer .nav-and-our-slug {
+display: flex;
+justify-content: space-between;
+}
+.footer-nav ul {
+display: flex;
+white-space: nowrap;
+row-gap: 20px;
+/* justify-content: flex-start; */
+/* column-gap: 20px; */
+}
+.footer-nav li {
+border-right: 1px solid rgb(255, 255, 255, 0.333);
+/* padding-right: 20px; */
+}
+.footer-nav li:last-of-type {
+border-right: none;
+/* padding-right: 20px; */
+}
+.footer-nav li a {
+padding: 20px;
+}
+.footer-nav li:first-of-type a {
+padding-left: 0px;
+}
+.address-on-one-line {
+margin-bottom: 40px;
+}
+.address-on-one-line address {
+display: inline;
+padding-right: 20px;
+}
+.address-on-one-line address .line:after {
+content: ', ';
+}
+.address-on-one-line address .line:last-of-type:after {
+content: '';
+}
+.content.wrap {
+background-color: white;
+}
+.content.wrap,
+footer {
+position: relative;
+z-index: 22;
+}
+.nav-and-our-slug {
+margin-bottom: 40px;
+}
+@media(max-width: 1200px) {
+.nav-and-our-slug {
+row-gap: 60px;
+flex-wrap: wrap;
+> * {
+flex: 1 1 100%;
+}
+.placewise-slug svg {
+margin: 0 auto;
+}
+.footer-nav ul {
+justify-content: center;
+}
+}
+}
+@media(max-width: 900px) {
+.footer-nav ul {
+flex-wrap: wrap;
+max-width: 500px;
+margin: 0 auto;
+}
+}
+.inner-wrapper {
+padding-bottom: 500px;
+}
+.map-reveal {
+width: 100%;
+height: 500px;
+position: fixed;
+bottom: 0;
+}
+.map-reveal img {
+object-fit: cover;
+height: 500px;
+}
+</style>
+<!-- layouts: sonoma footer -->
+<footer role="contentinfo">
+<div class="page-width-maintainer">
+<div class="third alpha">
+<div class="major">
+Hours
+</div>
+<div>
+<!-- week_begins_on_a: Monday -->
+<!-- week_begins_on_a: Monday -->
+<ul class="opening-hours next-7 s">
+<li><span class="label"><time>Mon</time>&nbsp;–⁠&nbsp;<time>Sat</time>:&nbsp;</span><span class="value"><time datetime="10:00">10am</time>&nbsp;–⁠&nbsp;<time datetime="20:00">8pm</time></span></li><li><span class="label">Sun:&nbsp;</span><span class="value"><time datetime="11:00">11am</time>&nbsp;–⁠&nbsp;<time datetime="18:00">6pm</time></span></li>
+</ul>
+<meta itemprop="openingHours" content="">
+<a class="read-more" href="/hours/">View Calendar</a>
+</div>
+<div class="address-wrappo">
+<br>
+<a href="/directions/">
+<div itemscope="" itemtype="http://schema.org/LocalBusiness" class="address-wrapper"><address itemprop="address" class="address" itemscope="" itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress" class="streetAddress">1885 Briargate Parkway</span><br><span itemprop="addressLocality" class="addressLocality">Colorado Springs</span>,&nbsp;<span itemprop="addressRegion" class="addressRegion">CO</span>&nbsp;
+<span itemprop="postalCode" class="postalCode">80920</span><br></address></div>
+</a>
+</div>
+</div><div class="divider-x"></div><div class="third bravo">
+<div class="major">Insider Access</div>
+<div class="minor">Receive exclusive offers,<br>first access to&nbsp;events, and&nbsp;more.</div>
+<style>
+footer .signup-login-toggler,
+footer .pwofile-magic-link-request-form legend {
+display: none;
+}
+footer .pwofile-magic-link-request-form fieldset {
+max-width: 400px;
+margin: 0 auto;
+}
+footer .pwofile-magic-link-request-form input[type=email] {
+margin-bottom: 20px;
+}
+.home footer .pwofile-magic-link-request-form input[type=submit] {
+margin-bottom: 0px;
+}
+footer .pwofile-magic-link-request-form label {
+display: block;
+line-height: 1.319;
+font-size: 14px;
+margin-bottom: 20px;
+}
+footer .pwofile-magic-link-request-form label a {
+color: currentColor;
+text-decoration: underline;
+}
+footer .pwofile-magic-link-request-form label a:hover {
+opacity: 0.7;
+}
+</style>
+<form class="pwofile-form pwofile-magic-link-request-form" data-signup-code="magic-link_login-page" data-profile-redirects="{&quot;before_required_fields&quot;:&quot;/profile/&quot;}">
+<fieldset>
+<legend data-sign-up-text="Enter Your Email" data-log-in-text="Sign-In">Enter Your Email</legend>
+<input required="" spellcheck="false" pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,8}$" placeholder="Email" autocapitalize="off" autocorrect="off" data-error-message="Please supply a valid email address." aria-label="Email" id="login-email" name="email" type="email" x-autocompletetype="email" class="email">
+<label class="needed-for-reg wraps">
+<input required="" id="read-terms-1" name="read_terms" type="checkbox" class="sentence" value="1">
+I have read the <a href="/terms/">terms&nbsp;of&nbsp;use</a> and the <a href="/privacy-info/">privacy&nbsp;policy</a>.
+</label>
+</fieldset>
+<input type="submit" name="" data-up-text="Sign-Up or Log-In" data-up-text-sign-up="Sign-Up or Log-In" data-up-text-log-in="Sign-Up or Log-In" data-down-text="Processing…" value="Sign-Up or Log-In" class="magic-link-submit mutton">
+</form>
+</div>
+</div><div class="divider-x"></div><div class="third charlie">
+<div class="major">Stay Connected</div>
+<style type="text/css">
+.follow-suite.m-footer ul {
+display: flex;
+column-gap: 40px;
+row-gap: 20px;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+}
+.follow-suite.m-footer ul li {
+flex: 0 0 auto;
+}
+@media(max-width: 750px) {
+.follow-suite.m-footer ul {
+column-gap: 20px;
+row-gap: 10px;
+}
+}
+</style>
+<div class="follow-suite m-footer">
+<ul>
+<li><a href="https://x.com/ShopsBriargate/" title="Follow us on Twitter" target="_blank" rel="noopener">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="picon icon -var-www-legacy-com-icons-twitter-naked color-by-fill" fill="currentColor" version="1.1" viewBox="0 0 64 64" x="0px" xml:space="preserve" y="0px" tabindex="-1" width="36px" height="36px"><g><path d="M49.3,4.7h9.2L38.4,27.9L62,59.3H43.5L28.9,40.4L12.3,59.3H3.2l21.6-24.5L2,4.7h19.1l13.1,17.3L49.3,4.7z M46,53.6h5.1 L18,10h-5.5L46,53.6z"></path></g></svg>
+</a></li><li><a href="https://www.facebook.com/ShopsBriargate/" title="Follow us on Facebook" target="_blank" rel="noopener">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="picon icon -var-www-legacy-com-icons-facebook-naked color-by-fill" fill="currentColor" version="1.1" viewBox="0 0 64 64" x="0px" xml:space="preserve" y="0px" tabindex="-1" width="36px" height="36px"><path class="m8A05E" d="M45.9,36.8L47.5,26H37.1v-7c0-2.9,1.5-5.9,6.1-5.9h4.8V3.7c0,0-4.2-0.7-8.5-0.7C31,3,25.4,8.3,25.4,17.6v8.2 h-9.5v11h9.5V63h11.7V36.8H45.9z"></path></svg>
+</a></li><li><a href="https://www.instagram.com/shopsbriargate/" title="Follow us on Instagram" target="_blank" rel="noopener">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="picon icon -var-www-legacy-com-icons-instagram-naked color-by-fill" fill="currentColor" version="1.1" viewBox="0 0 64 64" x="0px" xml:space="preserve" y="0px" tabindex="-1" width="36px" height="36px"><radialGradient cx="0.3" cy="1.1" id="instafillbyalex" r="1" spreadMethod="pad"><stop offset="0%" stop-color="#fdf497"></stop><stop offset="5%" stop-color="#fdf497"></stop><stop offset="45%" stop-color="#fd5949"></stop><stop offset="60%" stop-color="#d6249f"></stop><stop offset="100%" stop-color="#285AEB"></stop></radialGradient><path class="m00497" d="M32,16.6c-8.6,0-15.4,6.9-15.4,15.4S23.5,47.4,32,47.4S47.3,40.4,47.3,32S40.6,16.6,32,16.6z M32,42.1 c-5.5,0-10.1-4.5-10.1-10.1S26.3,21.9,32,21.9C37.4,21.9,42,26.4,42,32S37.4,42.1,32,42.1z M51.6,16c0,2-1.7,3.6-3.6,3.6 c-2,0-3.6-1.7-3.6-3.6s1.7-3.6,3.6-3.6C50,12.3,51.6,14,51.6,16z M61.9,19.6c-0.2-4.8-1.3-9.1-4.8-12.6c-3.5-3.5-7.8-4.6-12.6-4.8 c-5-0.3-19.8-0.3-24.8,0C14.9,2.4,10.6,3.6,7.2,7s-4.6,7.8-4.8,12.6c-0.3,5-0.3,19.8,0,24.8c0.2,4.8,1.3,9.1,4.8,12.6 c3.5,3.5,7.8,4.6,12.6,4.8c5,0.3,19.8,0.3,24.8,0c4.8-0.2,9.1-1.3,12.6-4.8c3.5-3.5,4.6-7.8,4.8-12.6C62,39.4,62,24.6,61.9,19.6z M55.4,49.7c-1,2.6-3.1,4.6-5.8,5.8c-4,1.5-13.4,1.2-17.7,1.2S18.2,57,14.3,55.5c-2.6-1-4.6-3.1-5.8-5.8C7,45.7,7.3,36.3,7.3,32 S7,18.3,8.5,14.3c1-2.6,3.1-4.6,5.8-5.8C18.2,7,27.7,7.4,32,7.4S45.7,7,49.6,8.5c2.6,1,4.6,3.1,5.8,5.8c1.5,4,1.2,13.4,1.2,17.7 S56.9,45.7,55.4,49.7z"></path></svg>
+</a></li><li><a href="/register/" title="Sign up for our emails">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" class="picon icon -var-www-legacy-com-icons-email-naked color-by-fill" version="1.1" viewBox="0 0 64 64" x="0px" xml:space="preserve" y="0px" tabindex="-1" width="36px" height="36px" fill="currentColor"><g class="cbf"><path d="M32,31.95c8.66,0,15.73-7.07,15.73-15.73S40.66,0.5,32,0.5S16.27,7.57,16.27,16.23S23.34,31.95,32,31.95z M38.27,37.92 H25.73c-11.74,0-21.3,9.55-21.3,21.3c0,2.39,1.89,4.28,4.28,4.28h46.58c2.39,0,4.28-1.89,4.28-4.28 C59.57,47.38,50.01,37.92,38.27,37.92z"></path></g></svg>
+</a></li>
+</ul>
+</div>
+<div class="meta">Phone:&nbsp;<a href="tel:+17192656264" class="telephone" tabindex="0" target="_blank" rel="noopener">(719)&nbsp;265‑6264</a></div>
+</div>
+</footer></div>
+<div class="post-footer" role="region">
+<div class="page-width-maintainer">
+<div class="nav-and-our-slug">
+<!-- footer ofn outer yay -->
+<!-- Rogale Świętomarcińskie -->
+<nav itemscope="" itemtype="http://schema.org/SiteNavigationElement" class="footer-links footer-nav"><ul aria-label="Secondary Navigation" class="s n7items"><li itemprop="name" class="item"><a href="/" itemprop="url" tabindex="0">Home</a></li><li itemprop="name" class="item"><a href="/leasing/" itemprop="url" tabindex="0">Leasing</a></li><li itemprop="name" class="item"><a href="/jobs/" itemprop="url" tabindex="0">Employment</a></li><li itemprop="name" class="item"><a href="/terms-and-conditions/" itemprop="url" tabindex="0">Terms of Use</a></li><li itemprop="name" class="item"><a href="/privacy-info/" itemprop="url" tabindex="0">Privacy</a></li><li itemprop="name" class="item"><a href="/cookie-policy/" itemprop="url" tabindex="0">Cookie Policy</a></li><li itemprop="name" class="item"><a href="/accessibility/" itemprop="url" tabindex="0">Accessibility</a></li></ul></nav>
+<!-- nav cached at 4:25 AM -->
+<div>
+<div class="slug placewise-slug">
+<a href="https://www.placewise.com/" target="_blank" rel="noopener" tabindex="0" title="Brought to you by the placeWise network">
+<svg class="slug PWDlogoSlug" data-name="PWDlogoSlug" aria-labelledby="PWDlogoSlugTitle" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="24" width="173" viewBox="0 0 173 24" xml:space="preserve">
+<title id="PWDlogoSlugTitle">placewise logo</title>
+<style type="text/css">
+.outer-rectangle{fill-rule:evenodd;clip-rule:evenodd;}
+.PWDlogoSlug {fill:currentColor; stroke:none; display: block}
+</style>
+<g class="network">
+<path d="M106.4,8.9h1.3v1.5c0.5-1.1,1.6-1.7,2.8-1.7c2.1,0,3.1,1.3,3.1,3.8v4.2h-1.3v-4.2c0-1.8-0.8-2.5-2.2-2.5 c-1.4,0-2.5,1.3-2.5,2.6v0.1v4.1h-1.3V8.9z"></path>
+<path d="M123.1,13.1h-6.4c0.1,1.4,1.1,2.5,2.6,2.5c0.9,0.1,1.8-0.5,2.1-1.3h1.5c-0.5,1.5-2,2.6-3.6,2.5 c-2.2,0-3.9-1.8-3.9-4v-0.1c-0.1-2.2,1.7-4,3.8-4.1h0.1c2.1,0,3.8,1.7,3.8,3.8c0,0,0,0,0,0.1V13.1z M121.9,12 c-0.2-1.2-1.3-2.1-2.5-2.1c-1.1,0-2.3,0.9-2.5,2.1H121.9z"></path>
+<path d="M125.1,13.8V10h-1.7V8.9h1.7V6.6h1.3v2.3h2.5V10h-2.5v3.8c0,1.5,0.7,1.7,1.4,1.7h1.1v1.1h-1.5 C126.5,16.6,125.1,16.2,125.1,13.8z"></path>
+<path d="M129.4,8.9h1.4l1.8,5.6l0.1,0.5l0,0l0.1-0.5l1.8-5.6h1l1.7,5.5l0.2,0.5l0,0l0.2-0.6l1.9-5.4h1.4l-2.7,7.7H137 l-1.9-5.9l0,0l-1.9,5.9H132L129.4,8.9z"></path>
+<path d="M141.4,12.8c-0.1-2.2,1.7-4,3.9-4.1h0.1c2.2,0,4,1.8,4.1,4c0,0,0,0,0,0.1c0,2.2-1.8,4-4,4 C143.4,16.8,141.4,15,141.4,12.8z M148.2,12.8c0-1.5-1.1-2.7-2.7-2.7c-1.6,0-2.7,1.3-2.7,2.7s1.2,2.7,2.7,2.7 C147,15.6,148.2,14.3,148.2,12.8z"></path>
+<path d="M151.4,8.9h1.3v1.8c0.3-1.2,1.3-1.8,2.4-1.8h0.7V10H155c-1.3,0-2.4,1.2-2.4,3v3.7h-1.3V8.9z"></path>
+<path d="M160,12.9l-1.5,1.6v2.2h-1.3V6h1.3v7l3.3-4.1h1.6l-2.5,3.1l2.9,4.6h-1.4L160,12.9z"></path>
+</g>
+<g class="placewise">
+<path d="M29.8,8.9H32v1c0.5-0.8,1.4-1.3,2.4-1.3c2.2,0,3.8,1.9,3.8,4.2S36.6,17,34.4,17c-0.9,0-1.8-0.4-2.4-1.3l0.1,1 v2.7h-2.4L29.8,8.9L29.8,8.9z M35.8,12.7c0.1-1-0.7-2-1.7-2.1c-0.1,0-0.1,0-0.2,0c-1.2,0-1.9,1-1.9,2.1l0,0c0,1.2,0.8,2,1.9,2.1 c1,0,1.9-0.8,1.9-1.8C35.8,12.8,35.8,12.8,35.8,12.7z"></path>
+<path d="M39.5,6h2.4v10.8h-2.4V6z"></path>
+<path d="M43.2,12.7c0-2.3,1.5-4.2,3.7-4.2c1-0.1,2,0.4,2.5,1.3V8.9h2.2v7.9h-2.2v-1c-0.6,0.8-1.5,1.3-2.5,1.3 C44.8,16.9,43.2,15,43.2,12.7z M49.3,12.7c0.1-1.2-0.8-2-1.9-2.1l0,0c-1,0-1.9,0.9-1.9,1.9c0,0.1,0,0.1,0,0.2c-0.1,1,0.7,2,1.7,2.1 c0.1,0,0.1,0,0.2,0C48.5,14.7,49.4,13.8,49.3,12.7L49.3,12.7z"></path>
+<path d="M53,12.7c-0.1-2.2,1.7-4.1,3.9-4.2c0.1,0,0.1,0,0.2,0c2-0.1,3.7,1.3,4.1,3.2h-2.4c-0.3-0.7-0.9-1.2-1.6-1 c-1,0-1.8,0.9-1.8,1.9v0.1c-0.1,1,0.7,2,1.7,2.1h0.1c0.8,0.1,1.5-0.5,1.6-1.2h2.4c-0.3,2-2.1,3.5-4.1,3.3c-2.2,0-4.1-1.8-4.1-4 C53,12.8,53,12.8,53,12.7z"></path>
+<path d="M70,13.4h-5.9c0.1,0.9,0.8,1.6,1.8,1.6c0.6,0.1,1.1-0.2,1.4-0.8h2.5c-0.5,1.7-2.1,2.8-3.9,2.8 c-2.2,0-4.1-1.8-4.1-4c0-0.1,0-0.1,0-0.2c-0.1-2.2,1.7-4.1,3.9-4.2c0.1,0,0.1,0,0.2,0c2.2,0,3.9,1.7,4,3.8c0,0.1,0,0.2,0,0.3 C70,12.8,70,13.1,70,13.4z M67.7,11.7c-0.1-0.8-0.8-1.3-1.6-1.3c-0.8,0-1.5,0.5-1.8,1.3H67.7z"></path>
+<path d="M70.2,8.9h2.5l1.3,4.3l0.1,0.5h0.1l0.1-0.5l1.3-4.3h1.7l1.3,4.3l0.1,0.5l0,0l0.2-0.5L80,8.8h2.4l-2.6,7.9h-2.1 l-1.3-4.4l0,0l-1.4,4.4H73L70.2,8.9z"></path>
+<path d="M83.1,6.6c0.1-0.8,0.8-1.3,1.5-1.3c0.7,0.1,1.2,0.6,1.3,1.3c-0.1,0.8-0.8,1.3-1.5,1.3 C83.6,7.8,83.2,7.3,83.1,6.6z M83.3,8.9h2.4v7.9h-2.4V8.9z"></path>
+<path d="M87.1,14.1h2.2c0.1,0.6,0.4,1,1.3,1c0.7,0,1-0.3,1-0.7s-0.4-0.6-1.3-0.7c-1.6-0.2-2.8-0.8-2.8-2.5 c0-1.6,1.2-2.5,3.1-2.5c2,0,3.3,1.1,3.3,2.7h-2.3c-0.1-0.5-0.5-0.9-1-0.8l0,0c-0.6,0-0.8,0.3-0.8,0.6c0,0.4,0.2,0.5,1.4,0.7 c1.8,0.2,2.9,0.8,2.9,2.5c0,1.8-1.5,2.7-3.6,2.7C88.1,16.9,87.1,15.6,87.1,14.1z"></path>
+<path d="M102.9,13.4H97c0.1,0.9,0.8,1.6,1.8,1.6c0.6,0.1,1.3-0.2,1.4-0.8h2.5c-0.5,1.7-2.1,2.8-3.9,2.8 c-2.2,0-4.1-1.8-4.1-4c0-0.1,0-0.1,0-0.2c-0.1-2.2,1.7-4.1,3.9-4.2c0.1,0,0.1,0,0.2,0c2.2,0,3.9,1.7,4,3.8c0,0.1,0,0.2,0,0.3 C102.9,12.8,102.9,13.1,102.9,13.4z M100.5,11.7c-0.1-0.8-0.8-1.3-1.6-1.3c-0.8,0-1.5,0.5-1.8,1.3H100.5z"></path>
+</g>
+<path class="outer-rectangle" d="M0.5,0.5h172v23H0.5V0.5z M1.1,1.1h170.7V23H1.1V1.1z"></path>
+<g class="icon">
+<path d="M16,7.3h3.7v10.6H16C16,17.9,16,7.3,16,7.3z"></path>
+<path d="M12.4,9.9c1.5,0,2.7,1.2,2.7,2.7s-1.2,2.7-2.7,2.7s-2.7-1.3-2.7-2.7C9.7,11.2,11,9.9,12.4,9.9"></path>
+<path d="M23.1,9.9c1.5,0,2.7,1.2,2.7,2.7s-1.3,2.7-2.7,2.7s-2.7-1.3-2.7-2.7S21.5,9.9,23.1,9.9C23,9.9,23,9.9,23.1,9.9
+"></path>
+</g>
+</svg>
+</a>
+</div>
+</div>
+</div>
+<div class="client-slug">
+<div>
+<!-- gfs --><div class="slug client-slug"><a href="https://www.hines.com/" target="_blank" rel="noopener" class="slug-footer">Managed and leased by Hines</a></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="map-reveal">
+<a href="/directions/">
+<!-- cari -->
+<picture>
+<source srcset="https://cdn-files.eu.placewise.com/psc/assets/loose/briargate.png?w=600&amp;usm=15&amp;q=85&amp;h=500&amp;fit=crop&amp;auto=format 600w" media="(max-width:600px)">
+<source srcset="https://cdn-files.eu.placewise.com/psc/assets/loose/briargate.png?w=1200&amp;usm=15&amp;q=85&amp;h=500&amp;fit=crop&amp;auto=format 1200w" media="(max-width:1200px)">
+<source srcset="https://cdn-files.eu.placewise.com/psc/assets/loose/briargate.png?w=1920&amp;usm=15&amp;q=85&amp;h=500&amp;fit=crop&amp;auto=format 1920w">
+<img style="width:100%; display:block" src="https://cdn-files.eu.placewise.com/psc/assets/loose/briargate.png?w=1920&amp;usm=15&amp;q=85&amp;h=500&amp;fit=crop&amp;auto=format" alt="">
+</picture>
+</a>
+</div>
+<script src="/js/sonoma/production-v1753692501474.min.js"></script>
+<script>
+$(document).on('pw:post_eob_ready', function(e) { console.log(e.type)});
+$(document).trigger('pw:post_eob_ready');
+</script>
+<script type="text/javascript">
+var _userway_config = {"position":3,"account":"bIU13OLbIy","size":"large","type":1};
+</script>
+<script type="text/javascript" src="https://cdn.userway.org/widget.js"></script>
+<style>
+#userwayAccessibilityIcon {
+background-color: var(--color-brand-primary) !important;
+}
+</style>
+<script>
+var icontimer = setInterval(function(){
+const x = document.getElementById('userwayAccessibilityIcon') || false
+if(x) {
+x.removeAttribute('style')
+clearInterval(icontimer)
+}
+}, 99)
+</script>
+<!-- eobh --><script>
+// Automatic redirect to settings tab after login
+$(document).on('pw:logged_in', function() {
+// Check if we're on the profile page AND there's a login_token in URL
+var urlParams = new URLSearchParams(window.location.search);
+var hasLoginToken = urlParams.has('login_token');
+if (window.location.pathname.includes('/profile/') && hasLoginToken) {
+// Wait a bit for the tabs to be rendered
+setTimeout(function() {
+var settingsTab = $('li[data-tab="personal-settings"]');
+if (settingsTab.length) {
+settingsTab.click();
+}
+}, 300); // Small delay to ensure tabs are fully rendered
+}
+});
+</script>
+</div>
+</div>
+</div>
+
+<!-- si modals -->
+<div class="mmodal profile_bait" role="dialog" aria-labelledby="title" aria-describedby="description" aria-modal="true" id="profile_bait" style="max-width: 600px;">
+<div class="mmodal-wrapper">
+<div class="heading" style="position: relative;">
+<div class="mmodal-close" role="button" aria-label="close dialog" tabindex="0">
+<svg version="1.1" class="icon-x-xlose" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve" width="20" fill="white"><path d="M61.6,11.3c2.5-2.5,2.5-6.5,0-8.9c-2.5-2.5-6.5-2.5-8.9,0L32,23.1L11.3,2.4c-2.5-2.5-6.5-2.5-8.9,0s-2.5,6.5,0,8.9L23.1,32 L2.4,52.7c-2.5,2.5-2.5,6.5,0,8.9c2.5,2.5,6.5,2.5,8.9,0L32,40.9l20.7,20.7c2.5,2.5,6.5,2.5,8.9,0c2.5-2.5,2.5-6.5,0-8.9L40.9,32 L61.6,11.3z"></path></svg>
+</div>
+<div class="copy">
+Sign-In or Sign-Up to follow this store.
+</div>
+</div>
+<div class="modal-body">
+<div class="pwofile-ingress" data-affinity-id="1036011">
+<div class="container">
+<div class="tabbed_section_content_wrapper">
+<form class="pwofile-form pwofile-magic-link-request-form" data-signup-code="magic-link_store-1036011-page" data-profile-redirects="{}">
+<fieldset>
+<legend data-sign-up-text="Enter Your Email" data-log-in-text="Sign-In">Enter Your Email</legend>
+<input required="" spellcheck="false" pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,8}$" placeholder="Email" autocapitalize="off" autocorrect="off" data-error-message="Please supply a valid email address." aria-label="Email" id="login-email" name="email" type="email" x-autocompletetype="email" class="email">
+<label class="needed-for-reg wraps">
+<input required="" id="read-terms-1" name="read_terms" type="checkbox" class="sentence" value="1">
+I have read the <a href="/terms/">terms&nbsp;of&nbsp;use</a> and the <a href="/privacy-info/">privacy&nbsp;policy</a>.
+</label>
+</fieldset>
+<input type="submit" name="" data-up-text="Sign-Up or Log-In" data-up-text-sign-up="Sign-Up or Log-In" data-up-text-log-in="Sign-Up or Log-In" data-down-text="Processing…" value="Sign-Up or Log-In" class="magic-link-submit mutton">
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="mmodal profile_archetype" role="dialog" aria-labelledby="title" aria-describedby="description" aria-modal="true" id="profile_archetype" style="max-width: 600px;">
+<div class="mmodal-wrapper">
+<div class="mmodal-content">
+<div class="mmodal-header">
+HEADLINE
+<div class="mmodal-close" role="button" aria-label="close dialog" tabindex="0">
+<svg version="1.1" class="icon-x-xlose" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve" width="20" fill="white"><path d="M61.6,11.3c2.5-2.5,2.5-6.5,0-8.9c-2.5-2.5-6.5-2.5-8.9,0L32,23.1L11.3,2.4c-2.5-2.5-6.5-2.5-8.9,0s-2.5,6.5,0,8.9L23.1,32 L2.4,52.7c-2.5,2.5-2.5,6.5,0,8.9c2.5,2.5,6.5,2.5,8.9,0L32,40.9l20.7,20.7c2.5,2.5,6.5,2.5,8.9,0c2.5-2.5,2.5-6.5,0-8.9L40.9,32 L61.6,11.3z"></path></svg>
+</div>
+</div>
+<div class="mmodal-body">
+MESSAGE
+</div>
+<div class="mmodal-footer">
+<button type="button" class="mutton">CTA</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mmodal-overlay general" style="display: none; width: 100%; height: 100%; opacity: 0.8; position: fixed; top: 0; left: 0; background-color: black; zoom: 1; z-index: 99990;"></div>
+<div class="opmessage-injection" data-config="{&quot;content&quot;:&quot;text&quot;,&quot;attach_method&quot;:&quot;prependTo&quot;,&quot;attach_point&quot;:&quot;.header-wrapper&quot;,&quot;animation_speed&quot;:200}" style="display:none;">
+<div class="opmessage-content page-width-maintainer">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="64" height="64"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg><div class="message"></div>
+</div>
+</div>
+
+
+		
+		
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+		
+
+		
+
+		
+
+		
+			
+		
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+		
+		
+
+		
+			
+			
+		
+
+
+
+		<script src="https://cdn.userway.org/widgetapp/2026-09-29-10-33-22/widget_app_base_1790678002737.js" async="" id="a11yWidgetSrc" crossorigin="anonymous" integrity="sha256-i8lWKLzie0Zgw1qt44knviZAaaIjBxD9wIXEjw6EwcA="></script><script id="" text="" charset="" type="text/javascript" src="https://tag.simpli.fi/sifitag/30e31ca0-2940-013a-4df4-06abc14c0bc6"></script> <script id="" text="" charset="" type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-ZN12ZQQQH8"></script><script type="text/javascript" id="" charset="">(function(){if(!document.getElementById("usercentrics-cmp")){var a=document.createElement("script");a.type="application/javascript";a.src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js";document.head.appendChild(a);a=document.createElement("script");a.id="usercentrics-cmp";a.src="https://app.usercentrics.eu/browser-ui/latest/loader.js";a.setAttribute("data-settings-id","7_PB1v3aXGMpQP");a.async=!0;a.onload=function(){var b=0,c=setInterval(function(){b++;typeof uc!=="undefined"&&
+typeof uc.setCustomTranslations==="function"&&(uc.setCustomTranslations("https://termageddon.ams3.cdn.digitaloceanspaces.com/translations/"),clearInterval(c));b>=50&&clearInterval(c)},100)};document.head.appendChild(a)}})();</script></body></html>

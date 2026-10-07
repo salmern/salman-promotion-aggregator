@@ -1,12 +1,17 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": ".",
     "outDir": "dist",
+    "composite": true,
     "paths": {
       "@promotions/shared": ["../../packages/shared/src/index.ts"],
       "@promotions/db": ["../../packages/db/src/index.ts"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    { "path": "../../packages/shared" },
+    { "path": "../../packages/db" }
+  ]
 }

@@ -109,4 +109,14 @@ The brief explicitly says not to use managed scraping services. Playwright runs 
 
 ## Items Discovered During Implementation
 
-_(This section is updated as implementation proceeds.)_
+### Social Links — Mall vs. Brand
+During fixture inspection, we discovered that brand store pages on this portal display the **mall's** social links (ShopsBriargate Instagram, Facebook, X), not the individual brand's social links. There is no brand-specific social media data available on this portal. Accordingly, `socialLinks` is always `[]` for all brands scraped from this source. This is documented here rather than left as a silent gap.
+
+### "View Website" Link
+The brand "View Website »" link passes through a `shopstyle.it` redirect rather than linking directly to the brand's website. We store this redirect URL as `websiteUrl` — it is a valid, functional external link that correctly routes to the brand's website. Following the redirect to capture the final URL would require an extra HTTP request per brand and is not worth the complexity for this MVP.
+
+### `.deal-row` Selector
+Real listing page uses `.deal-row` class (not `data-id`). Brand numeric ID is in `data-store-id` attribute. Deal deduplication uses the deal URL numeric ID. Brand key is constructed from the store page link found on the detail page.
+
+### Hours Parsing
+Hours on brand pages appear as: "Mon – Sat: 10am – 8pmSun: 11am – 6pm" (no separator between entries). The parser splits on weekday name boundaries and colons to extract structured entries.
