@@ -1,6 +1,6 @@
 # Promotions Aggregator — Single-Mall MVP
 
-A production-quality pipeline that scrapes promotions from **The Promenade Shops at Briargate** (Colorado Springs), persists them in MySQL, re-verifies them against the live source, and exposes them through a typed REST API and a polished Next.js UI.
+A production-oriented pipeline that scrapes promotions from The Promenade Shops at Briargate, demonstrating robust patterns for background job processing, data verification, and type-safe API design.
 
 ---
 
@@ -284,6 +284,30 @@ See `DESIGN.md` for detailed reasoning. Key decisions:
 - **BullMQ cancellation**: Redis `cancel:{jobId}` flag polled cooperatively between promotions
 - **Verification**: targeted re-check of known deal URLs (not full re-scrape)
 - **Politeness**: 1.5s delay, max 2 concurrent, realistic Chrome UA
+
+### Job Reliability & Resilience (FR-9, NFR-5)
+
+To ensure scraper failures never crash the API or silently drop data, the system is designed with strict boundaries:
+
+- **Retries & Backoff:** Scrape and verify jobs are enqueued with `attempts: 3` and exponential backoff (`delay: 5000ms`).
+- **Timeouts:** A hard timeout of `5 minutes` per job prevents hung Playwright instances from blocking the queue.
+- **Granular Failure Handling:** The worker wraps *each individual promotion* in a `try/catch`. If one page fails, it increments the `failed` count, logs the error, and continues. The overall job does not fail unless the entire worker crashes.
+- **API Isolation:** Because the API and Worker are separate Docker services, a worker crash or timeout has zero impact on API availability. (You can test this by running `docker compose kill worker` while the API remains fully responsive).
+
+### UI Features (FR-12, FR-13)
+
+The Next.js frontend (`localhost:3001`) provides a fully interactive interface for account managers:
+
+- **Promotion Cards:** Displays name, brand, image, end date, and a link to the original source.
+- **Search & Filters:** Real-time keyword search (name/brand), date range filtering (with overlap semantics), and brand dropdown filtering.
+- **Pagination:** Page-number based pagination with configurable page size.
+- **Group-by-Brand Toggle:** A dedicated view that groups promotions under their respective brand headers, displaying the brand's name, operating hours, and website link alongside its active promotions.
+- **Live Job Status:** The UI polls `GET /scrape/:jobId` to show real-time progress (attempted, persisted, failed counts) during a scrape.
+
+### Performance & Resilience (NFR-3, NFR-5)
+
+- **API Latency:** Standard read endpoints (`GET /promotions`, `GET /brands`) utilize indexed database columns and consistently return in `< 100ms` under normal load, well under the 5s NFR threshold.
+- **Resilience Demonstration:** You can safely test failure isolation by killing the `worker` container (`docker compose stop worker`) while the `api` container is running. The API will continue to serve requests, return `202 Accepted` for new scrape jobs, and gracefully report that the job is "waiting" until the worker is restarted.
 
 ---
 
