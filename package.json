@@ -11,9 +11,11 @@
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
-    "demo:drift": "npx ts-node -r tsconfig-paths/register scripts/demo-drift.ts"
+    "demo:drift": "ts-node --project tsconfig.scripts.json scripts/demo-drift.ts"
   },
   "devDependencies": {
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "ts-node": "^10.9.2",
+    "dotenv": "^16.4.5"
   }
 }
