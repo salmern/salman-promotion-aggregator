@@ -120,3 +120,9 @@ Real listing page uses `.deal-row` class (not `data-id`). Brand numeric ID is in
 
 ### Hours Parsing
 Hours on brand pages appear as: "Mon – Sat: 10am – 8pmSun: 11am – 6pm" (no separator between entries). The parser splits on weekday name boundaries and colons to extract structured entries.
+
+### waitUntil: 'networkidle' vs 'domcontentloaded' on Store Pages
+Discovered during live testing: the target site keeps HTTP connections open indefinitely on brand store pages (`/stores/...`). As a result, `waitUntil: 'networkidle'` always hits the 30-second timeout on store pages, which meant brand hours and website URLs were never extracted. Fixed by switching to `waitUntil: 'domcontentloaded'` followed by a 2-second wait — the same strategy that worked when capturing the HTML fixtures. This is documented here because it affects any reviewer trying to understand why brand data was initially missing.
+
+### Brand Re-fetch Strategy
+The scraper only re-fetches a brand page if: (a) the brand is new, (b) it was scraped more than 1 hour ago, or (c) it has empty hours. Condition (c) was added after live testing revealed that a failed brand page fetch (e.g. timeout on first scrape) left brands with `hours: []`, and the 1-hour window would prevent correcting them on the next scrape.
