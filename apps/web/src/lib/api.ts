@@ -15,10 +15,13 @@ import type {
 const BASE = process.env['NEXT_PUBLIC_API_URL'] ?? 'http://localhost:3000';
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  // Only set Content-Type: application/json when we actually have a body.
+  // Sending it with an empty body causes Fastify to return 400 FST_ERR_CTP_EMPTY_JSON_BODY.
+  const hasBody = options?.body != null;
   const res = await fetch(`${BASE}${path}`, {
     ...options,
     headers: {
-      'Content-Type': 'application/json',
+      ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
       ...options?.headers,
     },
   });

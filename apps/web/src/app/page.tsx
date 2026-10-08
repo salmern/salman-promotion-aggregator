@@ -9,7 +9,18 @@ import { Filters } from '../components/Filters';
 import type { FilterState } from '../components/Filters';
 import { Pagination } from '../components/Pagination';
 import { SkeletonGrid } from '../components/SkeletonCard';
-import type { BrandWithCount } from '@promotions/shared';
+import type { BrandWithCount, Promotion } from '@promotions/shared';
+
+/** Dedup promotions by (brandId + normalized name) — source publishes some deals multiple times */
+function dedupPromotions(items: Promotion[]): Promotion[] {
+  const seen = new Set<string>();
+  return items.filter((p) => {
+    const key = `${p.brandId}:${p.name.trim().toLowerCase()}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
 
 const EMPTY_FILTERS: FilterState = { search: '', startDate: '', endDate: '', brand: '' };
 const PAGE_SIZE = 18;
@@ -237,7 +248,7 @@ export default function HomePage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {data.items.map((promo) => (
+            {dedupPromotions(data.items).map((promo) => (
               <PromotionCard key={promo.id} promotion={promo} />
             ))}
           </div>
