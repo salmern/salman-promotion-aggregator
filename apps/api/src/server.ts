@@ -1,4 +1,20 @@
-import 'dotenv/config';
+import path from 'path';
+import dotenv from 'dotenv';
+
+// Load .env from the monorepo root regardless of the process cwd.
+// This makes `cd apps/api && npm run dev` work the same as running from
+// the repo root. Checks both the ts-node-dev path (src/) and the compiled
+// path (dist/src/) since __dirname differs between them. In Docker, env
+// vars are injected directly by Compose and no .env file exists in the
+// image, so a missing file here is a harmless no-op.
+for (const candidate of ['../../../.env', '../../../../.env']) {
+  const envPath = path.resolve(__dirname, candidate);
+  if (require('fs').existsSync(envPath)) {
+    dotenv.config({ path: envPath });
+    break;
+  }
+}
+
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import { getDb, runMigrations, closeDb } from '@promotions/db';

@@ -154,8 +154,14 @@ export async function runScrape(options: ScrapeOptions): Promise<ScrapeProgress>
             const resolvedKey = brandKey || extractBrandKey(storeUrl) || cacheKey;
             const existing = await getBrandByKey(db, resolvedKey);
 
-            // Only re-scrape if brand is fresh-enough or missing
-            if (!existing || shouldRefreshBrand(existing.scrapedAt, scrapedAt)) {
+            // Re-scrape if: brand is new, was scraped more than 1h ago,
+            // or had empty hours (meaning the previous brand-page fetch failed)
+            const needsBrandFetch =
+              !existing ||
+              shouldRefreshBrand(existing.scrapedAt, scrapedAt) ||
+              (existing.hours as unknown[]).length === 0;
+
+            if (needsBrandFetch) {
               logger.info({ brandKey: resolvedKey, storeUrl }, 'Fetching brand page');
               try {
                 const brandPage = await openPage(storeUrl);

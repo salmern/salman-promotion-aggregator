@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@promotions/shared": "*",
-    "next": "^14.2.3",
+    "next": "^15.3.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "date-fns": "^3.6.0",
@@ -28,6 +28,6 @@
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.3"
+    "eslint-config-next": "^15.3.4"
   }
 }

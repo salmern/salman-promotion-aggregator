@@ -91,10 +91,18 @@ export async function openPage(path: string): Promise<Page> {
 
     const url = path.startsWith('http') ? path : `${BASE_URL}${path}`;
 
+    // Use 'domcontentloaded' instead of 'networkidle'.
+    // The promenadeshopsatbriargate.com keeps HTTP connections open indefinitely,
+    // so 'networkidle' never fires on store pages — it would always timeout after 30s.
+    // 'domcontentloaded' + a 2s wait for JS rendering is the reliable strategy
+    // confirmed when capturing our HTML fixtures.
     await page.goto(url, {
-      waitUntil: 'networkidle',
+      waitUntil: 'domcontentloaded',
       timeout: 30_000,
     });
+
+    // Give JS 2 seconds to inject dynamic content (hours, website links, etc.)
+    await sleep(2000);
 
     return page;
   } catch (err) {

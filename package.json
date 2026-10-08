@@ -14,8 +14,12 @@
     "demo:drift": "ts-node --project tsconfig.scripts.json scripts/demo-drift.ts"
   },
   "devDependencies": {
-    "typescript": "^5.4.5",
+    "dotenv": "^16.4.5",
     "ts-node": "^10.9.2",
-    "dotenv": "^16.4.5"
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "browserslist": "^4.29.3",
+    "caniuse-lite": "^1.0.30001815"
   }
 }
