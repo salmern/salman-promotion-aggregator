@@ -170,7 +170,19 @@ A discrepancy is reported when:
 
 ---
 
-## 6. What Was Intentionally Cut
+## 6. API Framework Choice: Fastify over Express
+
+The brief lists Express as a bonus suggestion, not a requirement — the actual requirement is "TypeScript throughout, Node on the backend." Fastify was chosen instead for three concrete reasons:
+
+- **Built-in JSON schema validation and serialization**: request/response shapes are validated at the framework level, which directly supports the "TypeScript hygiene" criterion without adding a separate validation layer.
+- **Better TypeScript integration**: route generics for params, query, and body mean type errors surface at compile time, not runtime.
+- **Performance**: meaningfully lower overhead than Express under load — not critical at take-home scale but signals production thinking.
+
+Express would have worked. Fastify is a stronger choice for a typed, production-oriented API and the decision is documented here as required by the brief.
+
+---
+
+## 7. What Was Intentionally Cut
 
 - **Multi-portal abstraction**: single portal hard-coded by design.
 - **Automated scheduling (cron)**: endpoints for on-demand triggering only.
