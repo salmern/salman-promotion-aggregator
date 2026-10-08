@@ -114,6 +114,15 @@ export function mapVerificationReport(
 /**
  * Maps a BullMQ Job to a typed ScrapeJobStatus.
  * The job's data field stores progress counts written by updateData().
+ *
+ * Cancellation detection:
+ *  - Normal path: worker throws Error('CANCELLED: ...') → BullMQ marks 'failed'
+ *    → isCancelled detected by state==='failed' + failedReason starts with 'CANCELLED:'
+ *  - Race condition: scrape finishes before cancel flag is polled → BullMQ marks
+ *    'completed' but job.data.status === 'cancelled' (set by worker before returning)
+ *    → detected via data.status field
+ *  - Waiting job cancelled: moveToFailed with CANCELLED reason → state='failed'
+ *    → detected by normal path above
  */
 export async function mapJobStatus(job: Job): Promise<ScrapeJobStatus> {
   const state = await job.getState();
@@ -127,21 +136,33 @@ export async function mapJobStatus(job: Job): Promise<ScrapeJobStatus> {
     failed: (data['failed'] as number | undefined) ?? 0,
   };
 
-  // Detect cancellation from failed reason
-  const isCancelled =
+  // Detect cancellation — two paths:
+  // 1. Job failed with CANCELLED reason (normal cancellation path)
+  const cancelledViaFailed =
     state === 'failed' &&
     typeof job.failedReason === 'string' &&
     job.failedReason.startsWith('CANCELLED:');
 
+  // 2. Job completed but worker set status='cancelled' in job data
+  //    (race condition: scrape finished before cancel flag was polled,
+  //    but the cancel flag was set partway through)
+  const cancelledViaData =
+    (state === 'completed' || state === 'failed') &&
+    (data['status'] as string | undefined) === 'cancelled';
+
+  const isCancelled = cancelledViaFailed || cancelledViaData;
+
   const mappedState: JobState = isCancelled ? 'cancelled' : (state as JobState);
+
+  const failedReason = isCancelled
+    ? (job.failedReason?.replace(/^CANCELLED:\s*/, '') ?? 'Cancelled by user')
+    : (job.failedReason ?? null);
 
   return {
     jobId: job.id ?? '',
     state: mappedState,
     counts,
-    failedReason: isCancelled
-      ? job.failedReason?.replace(/^CANCELLED:\s*/, '') ?? null
-      : (job.failedReason ?? null),
+    failedReason,
     createdAt: job.timestamp ? new Date(job.timestamp).toISOString() : null,
     processedAt: job.processedOn ? new Date(job.processedOn).toISOString() : null,
     finishedAt: job.finishedOn ? new Date(job.finishedOn).toISOString() : null,

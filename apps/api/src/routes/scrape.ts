@@ -49,6 +49,12 @@ export async function scrapeRoutes(app: FastifyInstance): Promise<void> {
   app.get<{ Params: { jobId: string } }>('/scrape/:jobId', async (request, reply) => {
     const job = await queue.getJob(request.params.jobId);
     if (!job) {
+      // Check if this job was cancelled while waiting (removed from queue)
+      const cancelledKey = `cancelled-job:${request.params.jobId}`;
+      const cancelledData = await redis.get(cancelledKey);
+      if (cancelledData) {
+        return reply.send(JSON.parse(cancelledData));
+      }
       return reply.status(404).send({
         statusCode: 404,
         error: 'Not Found',
@@ -86,12 +92,26 @@ export async function scrapeRoutes(app: FastifyInstance): Promise<void> {
       }
 
       if (state === 'waiting' || state === 'delayed') {
-        // Job hasn't started — remove it directly
+        // Job hasn't started — remove it from the queue and store a
+        // cancelled marker in Redis so GET /scrape/:jobId can return
+        // state='cancelled' instead of 404.
+        const cancelledKey = `cancelled-job:${jobId}`;
+        await redis.set(
+          cancelledKey,
+          JSON.stringify({
+            jobId,
+            state: 'cancelled',
+            failedReason: 'Cancelled by user before job started',
+            counts: { attempted: 0, persisted: 0, updated: 0, skipped: 0, failed: 0 },
+          }),
+          'EX',
+          3600, // 1 hour TTL — enough time to check the result
+        );
         await job.remove();
-        logger.info({ jobId }, 'Waiting job removed (cancelled before start)');
+        logger.info({ jobId }, 'Waiting job removed and cancelled marker stored');
         return reply.send({
           jobId,
-          message: 'Job cancelled (removed before it started)',
+          message: 'Job cancelled (stopped before it started)',
         });
       }
 
