@@ -5,6 +5,7 @@ import { PromotionCard } from './PromotionCard';
 interface Props {
   brand: BrandWithCount;
   promotions: Promotion[];
+  onPromotionClick?: (promotion: Promotion) => void;
 }
 
 /**
@@ -22,7 +23,7 @@ function dedupByName(promos: Promotion[]): Promotion[] {
   });
 }
 
-export function BrandSection({ brand, promotions }: Props) {
+export function BrandSection({ brand, promotions, onPromotionClick }: Props) {
   const deduped = dedupByName(promotions);
   if (deduped.length === 0) return null;
 
@@ -106,7 +107,7 @@ export function BrandSection({ brand, promotions }: Props) {
       {/* Promotions grid — deduplicated */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {deduped.map((promo) => (
-          <PromotionCard key={promo.id} promotion={promo} />
+          <PromotionCard key={promo.id} promotion={promo} onClick={onPromotionClick} />
         ))}
       </div>
     </section>

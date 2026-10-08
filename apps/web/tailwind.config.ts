@@ -40,6 +40,15 @@ const config: Config = {
       backdropBlur: {
         xs: '2px',
       },
+      keyframes: {
+        'slide-in': {
+          from: { transform: 'translateX(100%)' },
+          to:   { transform: 'translateX(0)' },
+        },
+      },
+      animation: {
+        'slide-in': 'slide-in 0.25s cubic-bezier(0.32, 0.72, 0, 1)',
+      },
     },
   },
   plugins: [],

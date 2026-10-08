@@ -9,6 +9,7 @@ import { Filters } from '../components/Filters';
 import type { FilterState } from '../components/Filters';
 import { Pagination } from '../components/Pagination';
 import { SkeletonGrid } from '../components/SkeletonCard';
+import { PromotionDrawer } from '../components/PromotionDrawer';
 import type { BrandWithCount, Promotion } from '@promotions/shared';
 
 /** Dedup promotions by (brandId + normalized name) — source publishes some deals multiple times */
@@ -29,6 +30,7 @@ export default function HomePage() {
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
   const [page, setPage] = useState(1);
   const [viewMode, setViewMode] = useState<'grid' | 'brands'>('grid');
+  const [selectedPromotion, setSelectedPromotion] = useState<Promotion | null>(null);
 
   // When filters change, reset to page 1
   const handleFilterChange = useCallback((f: FilterState) => {
@@ -242,6 +244,7 @@ export default function HomePage() {
                   key={brand.id}
                   brand={brand}
                   promotions={groupedByBrand?.get(brand.id) ?? []}
+                  onPromotionClick={setSelectedPromotion}
                 />
               ))
             )}
@@ -249,7 +252,7 @@ export default function HomePage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {dedupPromotions(data.items).map((promo) => (
-              <PromotionCard key={promo.id} promotion={promo} />
+              <PromotionCard key={promo.id} promotion={promo} onClick={setSelectedPromotion} />
             ))}
           </div>
         )}
@@ -274,6 +277,12 @@ export default function HomePage() {
           </p>
         </div>
       </footer>
+
+      {/* Detail drawer — renders on top of everything */}
+      <PromotionDrawer
+        promotion={selectedPromotion}
+        onClose={() => setSelectedPromotion(null)}
+      />
     </div>
   );
 }
