@@ -10,86 +10,71 @@ interface Props {
 export function VerificationReport({ report, onDismiss }: Props) {
   const isClean = report.result === 'clean';
 
-  if (isClean) {
-    // Clean — compact green bar, dismisses itself
-    return (
-      <div className="bg-green-50 border-b border-green-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="py-2.5 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-green-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-              </svg>
-              <p className="text-sm font-medium text-green-700">
-                All {report.checkedCount} promotions verified — data matches the source
-              </p>
-              <span className="text-xs text-green-500 hidden sm:inline">
-                · {formatDate(report.completedAt)}
-              </span>
-            </div>
-            <button
-              onClick={onDismiss}
-              className="text-green-400 hover:text-green-600 transition-colors shrink-0 focus:outline-none"
-              aria-label="Dismiss"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Drift detected — show full discrepancy list
-  const gone = report.discrepancies.filter((d) => d.discrepancyType === 'gone');
-  const changed = report.discrepancies.filter((d) => d.discrepancyType === 'changed');
-  const unverifiable = report.discrepancies.filter((d) => d.discrepancyType === 'unverifiable');
-
   return (
-    <div className="bg-amber-50 border-b border-amber-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-3">
+    <div className="bg-white border-b border-surface-tertiary shadow-[0_1px_0_0_rgba(0,0,0,0.04)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header row */}
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p className="text-sm font-semibold text-amber-800">
-              Verification found {report.discrepancyCount} issue{report.discrepancyCount !== 1 ? 's' : ''}
-              <span className="font-normal text-amber-600 ml-1.5">
-                · {report.checkedCount} promotions checked · {formatDate(report.completedAt)}
-              </span>
-            </p>
+        {/* ── Summary row ─────────────────────────────────────────────────── */}
+        <div className="py-3 flex items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            {/* Status indicator dot */}
+            <span className={cn(
+              'w-2 h-2 rounded-full shrink-0',
+              isClean ? 'bg-[#30d158]' : 'bg-[#ff9f0a]',
+            )} />
+
+            {isClean ? (
+              <p className="text-sm text-ink-primary">
+                <span className="font-medium">All clear.</span>
+                <span className="text-ink-secondary ml-1.5">
+                  {report.checkedCount} promotions verified against source
+                </span>
+                {report.completedAt && (
+                  <span className="text-ink-tertiary ml-1.5 hidden sm:inline">
+                    · {formatDate(report.completedAt)}
+                  </span>
+                )}
+              </p>
+            ) : (
+              <p className="text-sm text-ink-primary">
+                <span className="font-medium">
+                  {report.discrepancyCount} {report.discrepancyCount === 1 ? 'issue' : 'issues'} found.
+                </span>
+                <span className="text-ink-secondary ml-1.5">
+                  {report.checkedCount} promotions checked
+                </span>
+                {report.completedAt && (
+                  <span className="text-ink-tertiary ml-1.5 hidden sm:inline">
+                    · {formatDate(report.completedAt)}
+                  </span>
+                )}
+              </p>
+            )}
           </div>
+
           <button
             onClick={onDismiss}
-            className="text-amber-400 hover:text-amber-600 transition-colors shrink-0 focus:outline-none"
+            className="w-6 h-6 flex items-center justify-center rounded-full
+                       text-ink-tertiary hover:text-ink-secondary hover:bg-surface-secondary
+                       transition-colors shrink-0 focus:outline-none focus:ring-2 focus:ring-accent"
             aria-label="Dismiss"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
 
-        {/* Discrepancy list */}
-        <div className="space-y-1.5">
-          {/* Gone */}
-          {gone.map((d) => (
-            <DiscrepancyRow key={d.id} disc={d} />
-          ))}
-          {/* Changed */}
-          {changed.map((d) => (
-            <DiscrepancyRow key={d.id} disc={d} />
-          ))}
-          {/* Unverifiable */}
-          {unverifiable.map((d) => (
-            <DiscrepancyRow key={d.id} disc={d} />
-          ))}
-        </div>
+        {/* ── Discrepancy list (only shown when drift found) ───────────────── */}
+        {!isClean && report.discrepancies.length > 0 && (
+          <div className="border-t border-surface-tertiary pb-3">
+            <div className="divide-y divide-surface-tertiary">
+              {report.discrepancies.map((disc) => (
+                <DiscrepancyRow key={disc.id} disc={disc} />
+              ))}
+            </div>
+          </div>
+        )}
 
       </div>
     </div>
@@ -99,85 +84,82 @@ export function VerificationReport({ report, onDismiss }: Props) {
 function DiscrepancyRow({ disc }: { disc: VerificationDiscrepancy }) {
   const isGone = disc.discrepancyType === 'gone';
   const isUnverifiable = disc.discrepancyType === 'unverifiable';
+  const isChanged = disc.discrepancyType === 'changed';
 
   return (
-    <div className={cn(
-      'flex flex-col sm:flex-row sm:items-start gap-1.5 sm:gap-3 px-3 py-2.5 rounded-xl text-xs',
-      isGone
-        ? 'bg-red-50 border border-red-100'
-        : isUnverifiable
-          ? 'bg-surface-secondary border border-surface-tertiary'
-          : 'bg-white border border-amber-100',
-    )}>
-      {/* Type badge */}
+    <div className="py-2.5 flex items-start gap-4">
+
+      {/* Type label — fixed width, right-aligned */}
       <span className={cn(
-        'shrink-0 font-semibold px-2 py-0.5 rounded-full text-[10px] self-start mt-0.5',
-        isGone
-          ? 'bg-red-100 text-red-700'
-          : isUnverifiable
-            ? 'bg-surface-tertiary text-ink-tertiary'
-            : 'bg-amber-100 text-amber-700',
+        'shrink-0 text-[10px] font-semibold uppercase tracking-wider pt-0.5 w-20 text-right',
+        isGone ? 'text-error' : isUnverifiable ? 'text-ink-tertiary' : 'text-[#ff9f0a]',
       )}>
-        {isGone ? 'Gone' : isUnverifiable ? 'Unverifiable' : 'Changed'}
+        {isGone ? 'Gone' : isUnverifiable ? 'Unknown' : 'Changed'}
       </span>
 
+      {/* Divider */}
+      <div className="w-px self-stretch bg-surface-tertiary shrink-0" />
+
       {/* Content */}
-      <div className="flex-1 min-w-0 space-y-1">
-        {/* Promotion / brand name */}
-        <p className="font-semibold text-ink-primary truncate">
+      <div className="flex-1 min-w-0 space-y-1 py-0.5">
+        {/* Name + field */}
+        <p className="text-sm font-medium text-ink-primary truncate">
           {disc.promotionName ?? 'Unknown'}
           {disc.fieldName && (
-            <span className="font-normal text-ink-secondary ml-1.5">· {disc.fieldName}</span>
+            <span className="font-normal text-ink-tertiary ml-2 text-xs">
+              {disc.fieldName}
+            </span>
           )}
         </p>
 
-        {/* Before / After for changed */}
-        {disc.discrepancyType === 'changed' && disc.beforeValue && (
-          <div className="space-y-0.5">
-            <p className="text-ink-tertiary">
-              <span className="text-red-500 font-medium">Before:</span>{' '}
-              <span className="font-mono">{truncateValue(disc.beforeValue)}</span>
-            </p>
-            <p className="text-ink-tertiary">
-              <span className="text-green-600 font-medium">After:</span>{' '}
-              <span className="font-mono">{truncateValue(disc.afterValue ?? '—')}</span>
-            </p>
+        {/* Before → After for changed */}
+        {isChanged && (disc.beforeValue || disc.afterValue) && (
+          <div className="flex items-start gap-2 text-xs text-ink-secondary">
+            <span className="shrink-0 font-mono bg-surface-secondary rounded px-1.5 py-0.5 line-through text-ink-tertiary max-w-[220px] truncate">
+              {formatValue(disc.beforeValue ?? '—')}
+            </span>
+            <svg className="w-3 h-3 shrink-0 mt-0.5 text-ink-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+            <span className="shrink-0 font-mono bg-surface-secondary rounded px-1.5 py-0.5 text-ink-primary max-w-[220px] truncate">
+              {formatValue(disc.afterValue ?? '—')}
+            </span>
           </div>
         )}
 
-        {/* Gone reason */}
+        {/* Gone — just the URL */}
         {isGone && (
-          <p className="text-red-600">No longer exists at source</p>
+          <p className="text-xs text-ink-tertiary truncate font-mono">
+            {disc.beforeValue ?? disc.promotionName}
+          </p>
         )}
 
         {/* Unverifiable reason */}
         {isUnverifiable && disc.reason && (
-          <p className="text-ink-tertiary truncate">{disc.reason.split('\n')[0]}</p>
+          <p className="text-xs text-ink-tertiary truncate">
+            {disc.reason.split('\n')[0]}
+          </p>
         )}
       </div>
     </div>
   );
 }
 
-function truncateValue(val: string): string {
-  // For ISO dates, format nicely
+function formatValue(val: string): string {
+  // ISO date → readable Denver time
   if (/^\d{4}-\d{2}-\d{2}T/.test(val)) {
     try {
       return new Intl.DateTimeFormat('en-US', {
         timeZone: 'America/Denver',
         month: 'short', day: 'numeric', year: 'numeric',
-        hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
       }).format(new Date(val));
     } catch { /* fall through */ }
   }
-  // Clean up hours raw strings — normalize unicode joiners and collapse whitespace
+  // Hours raw — strip label and unicode joiners, collapse newlines
   const cleaned = val
-    .replace(/\u2060|\u200b|\u200c|\u200d/g, '') // zero-width chars
-    .replace(/Mon\s*[–-]\s*Sat/g, 'Mon–Sat')
-    .replace(/Sun:/g, ' · Sun:')
-    .replace(/\n+/g, ' · ')
+    .replace(/\u2060|\u200b|\u200c|\u200d/g, '')
     .replace(/^Hours:\s*/i, '')
+    .replace(/\n+/g, ' · ')
     .trim();
-  // Truncate long strings
-  return cleaned.length > 80 ? cleaned.slice(0, 77) + '…' : cleaned;
+  return cleaned.length > 60 ? cleaned.slice(0, 57) + '…' : cleaned;
 }
