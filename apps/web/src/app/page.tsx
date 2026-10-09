@@ -137,13 +137,24 @@ export default function HomePage() {
                 </div>
               )}
               {scrapeState.phase === 'done' && (
-                <button onClick={resetScrape} className="btn-secondary text-xs">
-                  {scrapeState.status.state === 'completed'
-                    ? '✓ Synced'
-                    : scrapeState.status.state === 'cancelled'
-                      ? 'Cancelled'
-                      : '✕ Failed'}
-                </button>
+                <div className="flex items-center gap-2">
+                  <span className={`text-xs font-medium ${
+                    scrapeState.status.state === 'completed'
+                      ? 'text-green-600'
+                      : scrapeState.status.state === 'cancelled'
+                        ? 'text-ink-secondary'
+                        : 'text-error'
+                  }`}>
+                    {scrapeState.status.state === 'completed'
+                      ? `✓ ${scrapeState.status.counts.persisted} new, ${scrapeState.status.counts.updated} updated`
+                      : scrapeState.status.state === 'cancelled'
+                        ? `Cancelled · ${scrapeState.status.counts.attempted} checked, ${scrapeState.status.counts.persisted} saved`
+                        : '✕ Failed'}
+                  </span>
+                  <button onClick={resetScrape} className="text-xs text-ink-tertiary hover:text-ink-secondary transition-colors">
+                    ×
+                  </button>
+                </div>
               )}
               {scrapeState.phase === 'error' && (
                 <button onClick={resetScrape} className="btn-secondary text-xs text-error">
