@@ -170,6 +170,14 @@ function truncateValue(val: string): string {
       }).format(new Date(val));
     } catch { /* fall through */ }
   }
+  // Clean up hours raw strings — normalize unicode joiners and collapse whitespace
+  const cleaned = val
+    .replace(/\u2060|\u200b|\u200c|\u200d/g, '') // zero-width chars
+    .replace(/Mon\s*[–-]\s*Sat/g, 'Mon–Sat')
+    .replace(/Sun:/g, ' · Sun:')
+    .replace(/\n+/g, ' · ')
+    .replace(/^Hours:\s*/i, '')
+    .trim();
   // Truncate long strings
-  return val.length > 80 ? val.slice(0, 77) + '…' : val;
+  return cleaned.length > 80 ? cleaned.slice(0, 77) + '…' : cleaned;
 }
