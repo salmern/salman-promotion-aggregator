@@ -134,27 +134,32 @@ export async function getPromotions(
   }
 
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+  const goneCondition = sql`${promotions.verificationStatus} != 'gone'`;
+  const finalWhere = whereClause ? and(whereClause, goneCondition) : goneCondition;
 
-  // Count total matching rows (excluding 'gone' promotions)
-  const goneExclude = sql`${promotions.verificationStatus} != 'gone'`;
-  const countWhere = whereClause ? and(whereClause, goneExclude) : goneExclude;
+  // Dedup at DB level: for promotions with the same (brand_id, normalised name),
+  // keep only the one with the lowest id (first scraped).
+  // The source site publishes some deals under multiple IDs for different
+  // category filters — we store all of them but only surface one per unique deal.
+  const dedupCondition = sql`${promotions.id} IN (
+    SELECT MIN(p2.id)
+    FROM promotions p2
+    WHERE ${goneCondition}
+    GROUP BY p2.brand_id, LOWER(p2.name)
+  )`;
 
+  const fullWhere = finalWhere ? and(finalWhere, dedupCondition) : dedupCondition;
+
+  // Count deduplicated total
   const countResult = await db
     .select({ total: count() })
     .from(promotions)
     .innerJoin(brands, eq(promotions.brandId, brands.id))
-    .where(countWhere);
+    .where(fullWhere);
 
   const total = countResult[0]?.total ?? 0;
   const totalPages = Math.ceil(total / filters.pageSize);
   const offset = (filters.page - 1) * filters.pageSize;
-
-  // Fetch page — active promotions first (endDate in future or null),
-  // then expired, both groups sorted by endDate ascending.
-  // Also exclude 'gone' promotions from the default listing — they no longer
-  // exist at the source and would confuse account managers browsing active deals.
-  const goneCondition = sql`${promotions.verificationStatus} != 'gone'`;
-  const finalWhere = whereClause ? and(whereClause, goneCondition) : goneCondition;
 
   const rows = await db
     .select({
@@ -163,7 +168,7 @@ export async function getPromotions(
     })
     .from(promotions)
     .innerJoin(brands, eq(promotions.brandId, brands.id))
-    .where(finalWhere)
+    .where(fullWhere)
     .orderBy(
       // Active first: NULL endDate and future dates before past dates
       sql`CASE WHEN ${promotions.endDate} IS NULL OR ${promotions.endDate} > NOW() THEN 0 ELSE 1 END`,
