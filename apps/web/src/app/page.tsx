@@ -208,14 +208,6 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Verification report panel — shown directly below header when done */}
-      {verifyState.phase === 'done' && (
-        <VerificationReport
-          report={verifyState.report}
-          onDismiss={resetVerify}
-        />
-      )}
-
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* Hero */}
         <div>
@@ -226,6 +218,14 @@ export default function HomePage() {
             The Promenade Shops at Briargate · Colorado Springs
           </p>
         </div>
+
+        {/* Verification report — shown below hero, aligned with page content */}
+        {verifyState.phase === 'done' && (
+          <VerificationReport
+            report={verifyState.report}
+            onDismiss={resetVerify}
+          />
+        )}
 
         {/* Filters */}
         <Filters

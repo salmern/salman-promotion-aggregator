@@ -11,8 +11,8 @@ export function VerificationReport({ report, onDismiss }: Props) {
   const isClean = report.result === 'clean';
 
   return (
-    <div className="bg-white border-b border-surface-tertiary shadow-[0_1px_0_0_rgba(0,0,0,0.04)]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-white rounded-2xl shadow-card overflow-hidden">
+      <div className="px-5">
 
         {/* ── Summary row ─────────────────────────────────────────────────── */}
         <div className="py-3 flex items-center justify-between gap-6">
