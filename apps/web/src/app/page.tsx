@@ -128,6 +128,14 @@ export default function HomePage() {
                   )}
                 </div>
               )}
+
+              {/* Cancelling — shown immediately after Cancel clicked, before worker stops */}
+              {scrapeState.phase === 'cancelling' && (
+                <div className="flex items-center gap-2 text-sm text-ink-secondary">
+                  <div className="w-4 h-4 border-2 border-ink-tertiary border-t-transparent rounded-full animate-spin" />
+                  <span className="hidden sm:inline text-xs">Cancelling…</span>
+                </div>
+              )}
               {scrapeState.phase === 'done' && (
                 <button onClick={resetScrape} className="btn-secondary text-xs">
                   {scrapeState.status.state === 'completed' ? '✓ Synced' : '✕ Sync failed'}

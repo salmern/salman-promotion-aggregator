@@ -7,6 +7,7 @@ type ScrapeState =
   | { phase: 'idle' }
   | { phase: 'starting' }
   | { phase: 'polling'; jobId: string; status: ScrapeJobStatus }
+  | { phase: 'cancelling'; jobId: string; status: ScrapeJobStatus }
   | { phase: 'done'; jobId: string; status: ScrapeJobStatus }
   | { phase: 'error'; message: string };
 
@@ -30,7 +31,13 @@ export function useScrapeJob(onComplete?: () => void) {
       pollRef.current = setInterval(async () => {
         try {
           const status = await api.scrape.status(jobId);
-          setState({ phase: 'polling', jobId, status });
+          // Keep polling but transition to cancelling state if cancel was requested
+          const currentPhase = (s: ScrapeState) =>
+            s.phase === 'cancelling' ? 'cancelling' : 'polling';
+          setState((prev) => {
+            const phase = prev.phase === 'cancelling' ? 'cancelling' : 'polling';
+            return { phase, jobId, status };
+          });
           if (status.state === 'completed' || status.state === 'failed' || status.state === 'cancelled') {
             stopPolling();
             setState({ phase: 'done', jobId, status });
@@ -47,10 +54,19 @@ export function useScrapeJob(onComplete?: () => void) {
   }, [stopPolling, onComplete]);
 
   const cancelScrape = useCallback(async (jobId: string) => {
+    // Immediately show cancelling state — gives instant feedback.
+    // The worker will stop after its current promotion (cooperative cancellation).
+    // The polling interval continues and will catch the final 'cancelled' state.
+    setState((prev) => {
+      if (prev.phase === 'polling') {
+        return { phase: 'cancelling', jobId: prev.jobId, status: prev.status };
+      }
+      return prev;
+    });
     try {
       await api.scrape.cancel(jobId);
     } catch {
-      // ignore cancel errors
+      // ignore cancel errors — state will resolve when polling catches the final status
     }
   }, []);
 
