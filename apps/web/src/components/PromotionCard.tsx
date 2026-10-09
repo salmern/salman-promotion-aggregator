@@ -46,9 +46,9 @@ function formatEndDateLabel(endDate: string): string {
 
 // Verification status config — what to show on the card
 const VERIFICATION_BADGE: Partial<Record<string, { label: string; className: string }>> = {
-  changed:      { label: '⚠ Updated',        className: 'bg-amber-500/90 text-white' },
-  gone:         { label: '✕ No longer live',  className: 'bg-red-500/90 text-white' },
-  unverifiable: { label: '? Unverified',       className: 'bg-black/50 text-white' },
+  changed:      { label: 'Updated',          className: 'bg-amber-500/90 text-white' },
+  gone:         { label: 'No longer live',   className: 'bg-red-500/90 text-white' },
+  unverifiable: { label: 'Unverified',        className: 'bg-black/50 text-white' },
 };
 
 export function PromotionCard({ promotion, onClick }: Props) {
@@ -89,9 +89,9 @@ export function PromotionCard({ promotion, onClick }: Props) {
 
         {/* Verification badge — top left */}
         {verificationBadge && (
-          <div className="absolute top-2 left-2">
+          <div className="absolute top-2 left-2 max-w-[45%]">
             <span className={cn(
-              'text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-sm',
+              'block truncate text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-sm',
               verificationBadge.className,
             )}>
               {verificationBadge.label}
@@ -101,9 +101,9 @@ export function PromotionCard({ promotion, onClick }: Props) {
 
         {/* End date pill — top right */}
         {endLabel && (
-          <div className="absolute top-2 right-2">
+          <div className="absolute top-2 right-2 max-w-[45%]">
             <span className={cn(
-              'text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-sm backdrop-blur-sm',
+              'block truncate text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-sm backdrop-blur-sm',
               expired
                 ? 'bg-black/40 text-white/70'
                 : expiringSoon

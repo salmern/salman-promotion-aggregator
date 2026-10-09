@@ -1,4 +1,4 @@
-import { eq, and, or, lte, gte, isNull, like, sql, count } from 'drizzle-orm';
+import { eq, and, or, lte, gte, isNull, like, sql, count, asc, desc } from 'drizzle-orm';
 import type { Db } from '../connection';
 import { promotions } from '../schema/promotions';
 import { brands } from '../schema/brands';
@@ -135,18 +135,27 @@ export async function getPromotions(
 
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 
-  // Count total matching rows
+  // Count total matching rows (excluding 'gone' promotions)
+  const goneExclude = sql`${promotions.verificationStatus} != 'gone'`;
+  const countWhere = whereClause ? and(whereClause, goneExclude) : goneExclude;
+
   const countResult = await db
     .select({ total: count() })
     .from(promotions)
     .innerJoin(brands, eq(promotions.brandId, brands.id))
-    .where(whereClause);
+    .where(countWhere);
 
   const total = countResult[0]?.total ?? 0;
   const totalPages = Math.ceil(total / filters.pageSize);
   const offset = (filters.page - 1) * filters.pageSize;
 
-  // Fetch page
+  // Fetch page — active promotions first (endDate in future or null),
+  // then expired, both groups sorted by endDate ascending.
+  // Also exclude 'gone' promotions from the default listing — they no longer
+  // exist at the source and would confuse account managers browsing active deals.
+  const goneCondition = sql`${promotions.verificationStatus} != 'gone'`;
+  const finalWhere = whereClause ? and(whereClause, goneCondition) : goneCondition;
+
   const rows = await db
     .select({
       promotion: promotions,
@@ -154,8 +163,12 @@ export async function getPromotions(
     })
     .from(promotions)
     .innerJoin(brands, eq(promotions.brandId, brands.id))
-    .where(whereClause)
-    .orderBy(promotions.endDate, promotions.createdAt)
+    .where(finalWhere)
+    .orderBy(
+      // Active first: NULL endDate and future dates before past dates
+      sql`CASE WHEN ${promotions.endDate} IS NULL OR ${promotions.endDate} > NOW() THEN 0 ELSE 1 END`,
+      asc(promotions.endDate),
+    )
     .limit(filters.pageSize)
     .offset(offset);
 
