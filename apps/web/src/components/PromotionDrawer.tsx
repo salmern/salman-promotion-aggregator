@@ -10,11 +10,11 @@ interface Props {
 }
 
 const STATUS_CONFIG = {
-  pending:       { label: null,                       className: '' },
-  verified:      { label: '✓ Verified',               className: 'bg-green-50 text-green-700 border-green-200' },
-  changed:       { label: '⚠ Data may have changed',  className: 'bg-amber-50 text-amber-700 border-amber-200' },
-  gone:          { label: '✕ No longer at source',     className: 'bg-red-50 text-red-700 border-red-200' },
-  unverifiable:  { label: '? Could not verify',        className: 'bg-surface-secondary text-ink-secondary border-surface-tertiary' },
+  pending:       { label: null,                      className: '' },
+  verified:      { label: 'Verified',                className: 'bg-green-50 text-green-700 border-green-200' },
+  changed:       { label: 'Data may have changed',   className: 'bg-amber-50 text-amber-700 border-amber-200' },
+  gone:          { label: 'No longer at source',     className: 'bg-red-50 text-red-700 border-red-200' },
+  unverifiable:  { label: 'Could not be verified',   className: 'bg-surface-secondary text-ink-secondary border-surface-tertiary' },
 } as const;
 
 export function PromotionDrawer({ promotion, onClose }: Props) {
@@ -99,8 +99,15 @@ export function PromotionDrawer({ promotion, onClose }: Props) {
               </h2>
             </div>
 
-            {/* Verification state banner — shown if not pending/verified */}
-            {status.label && promotion.verificationStatus !== 'pending' && (
+            {/* Verification state banner — shown for all statuses except pending has its own note */}
+            {promotion.verificationStatus === 'pending' ? (
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-surface-tertiary bg-surface-secondary text-xs text-ink-tertiary">
+                <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Not yet verified against source
+              </div>
+            ) : status.label && (
               <div className={cn(
                 'flex items-start gap-2 px-3 py-2.5 rounded-xl border text-xs',
                 status.className,
