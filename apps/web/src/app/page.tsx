@@ -138,7 +138,11 @@ export default function HomePage() {
               )}
               {scrapeState.phase === 'done' && (
                 <button onClick={resetScrape} className="btn-secondary text-xs">
-                  {scrapeState.status.state === 'completed' ? '✓ Synced' : '✕ Sync failed'}
+                  {scrapeState.status.state === 'completed'
+                    ? '✓ Synced'
+                    : scrapeState.status.state === 'cancelled'
+                      ? 'Cancelled'
+                      : '✕ Failed'}
                 </button>
               )}
               {scrapeState.phase === 'error' && (

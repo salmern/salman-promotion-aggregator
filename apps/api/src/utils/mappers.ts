@@ -136,21 +136,26 @@ export async function mapJobStatus(job: Job): Promise<ScrapeJobStatus> {
     failed: (data['failed'] as number | undefined) ?? 0,
   };
 
-  // Detect cancellation — two paths:
-  // 1. Job failed with CANCELLED reason (normal cancellation path)
+  // Detect cancellation — three paths:
+  // 1. Job failed with CANCELLED reason (normal cancellation path via throw)
   const cancelledViaFailed =
     state === 'failed' &&
     typeof job.failedReason === 'string' &&
     job.failedReason.startsWith('CANCELLED:');
 
-  // 2. Job completed but worker set status='cancelled' in job data
-  //    (race condition: scrape finished before cancel flag was polled,
-  //    but the cancel flag was set partway through)
+  // 2. Job completed/failed but worker set data.status='cancelled'
   const cancelledViaData =
     (state === 'completed' || state === 'failed') &&
     (data['status'] as string | undefined) === 'cancelled';
 
-  const isCancelled = cancelledViaFailed || cancelledViaData;
+  // 3. Job completed but failedReason still contains CANCELLED: marker
+  //    (race condition: BullMQ can attach failedReason to completed jobs)
+  const cancelledViaCompletedReason =
+    state === 'completed' &&
+    typeof job.failedReason === 'string' &&
+    job.failedReason.startsWith('CANCELLED:');
+
+  const isCancelled = cancelledViaFailed || cancelledViaData || cancelledViaCompletedReason;
 
   const mappedState: JobState = isCancelled ? 'cancelled' : (state as JobState);
 
