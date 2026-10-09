@@ -10,6 +10,7 @@ import type { FilterState } from '../components/Filters';
 import { Pagination } from '../components/Pagination';
 import { SkeletonGrid } from '../components/SkeletonCard';
 import { PromotionDrawer } from '../components/PromotionDrawer';
+import { VerificationReport } from '../components/VerificationReport';
 import type { BrandWithCount, Promotion } from '@promotions/shared';
 import { useVerifyJob } from '../hooks/useVerifyJob';
 
@@ -206,6 +207,14 @@ export default function HomePage() {
           </div>
         </div>
       </header>
+
+      {/* Verification report panel — shown directly below header when done */}
+      {verifyState.phase === 'done' && (
+        <VerificationReport
+          report={verifyState.report}
+          onDismiss={resetVerify}
+        />
+      )}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* Hero */}
