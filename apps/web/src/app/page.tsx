@@ -11,6 +11,7 @@ import { Pagination } from '../components/Pagination';
 import { SkeletonGrid } from '../components/SkeletonCard';
 import { PromotionDrawer } from '../components/PromotionDrawer';
 import type { BrandWithCount, Promotion } from '@promotions/shared';
+import { useVerifyJob } from '../hooks/useVerifyJob';
 
 /** Dedup promotions by (brandId + normalized name) — source publishes some deals multiple times */
 function dedupPromotions(items: Promotion[]): Promotion[] {
@@ -51,9 +52,9 @@ export default function HomePage() {
   const { brands, loading: brandsLoading } = useBrands();
 
   const { state: scrapeState, startScrape, cancelScrape, reset: resetScrape } = useScrapeJob(
-    // After scrape completes, refresh promotions
     () => void refetch(),
   );
+  const { state: verifyState, startVerify, reset: resetVerify } = useVerifyJob();
 
   // Group promotions by brand for the brand view
   const groupedByBrand = useMemo(() => {
@@ -109,8 +110,10 @@ export default function HomePage() {
               </span>
             </div>
 
-            {/* Scrape controls */}
+            {/* Scrape + Verify controls */}
             <div className="flex items-center gap-2">
+
+              {/* ── Sync (scrape) ── */}
               {scrapeState.phase === 'idle' && (
                 <button onClick={() => void startScrape()} className="btn-primary text-sm">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -137,12 +140,77 @@ export default function HomePage() {
               )}
               {scrapeState.phase === 'done' && (
                 <button onClick={resetScrape} className="btn-secondary text-xs">
-                  {scrapeState.status.state === 'completed' ? '✓ Done' : '✕ Failed'}
+                  {scrapeState.status.state === 'completed' ? '✓ Synced' : '✕ Sync failed'}
                 </button>
               )}
               {scrapeState.phase === 'error' && (
                 <button onClick={resetScrape} className="btn-secondary text-xs text-error">
-                  Error — retry
+                  Sync error
+                </button>
+              )}
+
+              {/* Divider */}
+              {(scrapeState.phase === 'idle' || scrapeState.phase === 'done') && (
+                <div className="w-px h-5 bg-surface-tertiary hidden sm:block" />
+              )}
+
+              {/* ── Verify ── */}
+              {verifyState.phase === 'idle' && (
+                <button
+                  onClick={() => void startVerify()}
+                  className="btn-secondary text-sm"
+                  title="Re-check all stored promotions against the live source"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="hidden sm:inline">Verify</span>
+                </button>
+              )}
+              {(verifyState.phase === 'starting' || verifyState.phase === 'polling') && (
+                <div className="flex items-center gap-1.5 text-sm text-ink-secondary">
+                  <div className="w-4 h-4 border-2 border-ink-tertiary border-t-transparent rounded-full animate-spin" />
+                  <span className="hidden sm:inline text-xs">
+                    {verifyState.phase === 'starting'
+                      ? 'Verifying…'
+                      : `Verifying… ${verifyState.checkedCount} checked`}
+                  </span>
+                </div>
+              )}
+              {verifyState.phase === 'done' && (
+                <button
+                  onClick={resetVerify}
+                  className={`btn-secondary text-xs flex items-center gap-1.5 ${
+                    verifyState.report.result === 'clean'
+                      ? 'text-green-600'
+                      : verifyState.report.result === 'drift'
+                        ? 'text-amber-600'
+                        : 'text-ink-secondary'
+                  }`}
+                  title={
+                    verifyState.report.result === 'clean'
+                      ? 'All promotions match the source'
+                      : verifyState.report.result === 'drift'
+                        ? `${verifyState.report.discrepancyCount} discrepanc${verifyState.report.discrepancyCount === 1 ? 'y' : 'ies'} found`
+                        : 'Verification complete'
+                  }
+                >
+                  {verifyState.report.result === 'clean' && (
+                    <><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                    <span className="hidden sm:inline">Clean</span></>
+                  )}
+                  {verifyState.report.result === 'drift' && (
+                    <><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span className="hidden sm:inline">{verifyState.report.discrepancyCount} issue{verifyState.report.discrepancyCount !== 1 ? 's' : ''}</span></>
+                  )}
+                  {(verifyState.report.result === 'partial' || verifyState.report.result === 'running') && (
+                    <span className="hidden sm:inline">Done</span>
+                  )}
+                </button>
+              )}
+              {verifyState.phase === 'error' && (
+                <button onClick={resetVerify} className="btn-secondary text-xs text-error">
+                  Verify error
                 </button>
               )}
             </div>
