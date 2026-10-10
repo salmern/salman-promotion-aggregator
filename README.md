@@ -157,46 +157,33 @@ curl http://localhost:3000/verify/1
 
 ## Drift Demo (FR-16)
 
-Demonstrates that the verification system catches specific data changes. Run this after a completed scrape.
+Demonstrates that the verification system catches specific data changes. Run this **after a completed scrape** with data in the database.
 
-### Option A — From inside Docker (recommended for reviewers)
+### Run the drift script
 
-```bash
-# Step 1: exec into the API container
-docker compose exec api sh
-
-# Step 2: run the drift script (DATABASE_URL already set in container)
-npx ts-node --project tsconfig.scripts.json scripts/demo-drift.ts
-
-# Step 3: exit the container
-exit
-```
-
-### Option B — Locally (requires Node.js ≥ 20)
+The script requires Node.js on the host. MySQL port `3306` is exposed by Docker Compose, so you connect directly:
 
 ```bash
-# Install dependencies if not already done
+# From the repo root (after docker compose up --build)
 npm install
-
-# Run with localhost DATABASE_URL (MySQL port 3306 is exposed to host)
 DATABASE_URL="mysql://promotions_user:promotions_pass@localhost:3306/promotions" \
   npm run demo:drift
 ```
 
 ### What it does
 
-The script makes **3 mutations** and resets all verification statuses to pending:
+The script makes **3 mutations** then resets all verification statuses to `pending`:
 
-1. Changes a promotion's `endDate` to 2 days in the past
-2. Overwrites a brand's store hours with fake values (`Mon–Fri: 9am–5pm, Sat–Sun: Closed`)
-3. Inserts a ghost promotion with a URL that doesn't exist at the source
+1. Changes a real promotion's `endDate` to 2 days in the past
+2. Overwrites a brand's store hours with fake values (`Mon–Fri: 9am–5pm`)
+3. Inserts a ghost promotion whose URL does not exist at the source
 
 ### Verify the drift
 
-Click **Verify** in the UI — the report will show all 3 discrepancies:
-- Ghost promotion: `Gone`
-- Brand hours: `Changed` with before/after values
-- End date: `Changed` with before/after timestamps
+Click **Verify** in the UI — the report panel shows all 3 discrepancies:
+- Ghost promotion: `Gone` — page not found at source
+- Brand hours: `Changed` — before and after values shown
+- End date: `Changed` — before and after timestamps shown
 
 Or via API:
 ```bash
@@ -204,11 +191,12 @@ curl -X POST http://localhost:3000/verify
 curl http://localhost:3000/verify/{runId}
 ```
 
-### Reset
+### Reset after the demo
 
 ```bash
+# In the UI — click Sync and wait for it to complete
+# Or via API:
 curl -X POST http://localhost:3000/scrape
-# Wait for completion — this restores real data from the live source
 ```
 
 ---
