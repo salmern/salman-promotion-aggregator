@@ -115,8 +115,12 @@ export default function HomePage() {
               {(scrapeState.phase === 'starting' || scrapeState.phase === 'polling') && (
                 <div className="flex items-center gap-2 text-sm text-ink-secondary">
                   <div className="w-4 h-4 border-2 border-accent border-t-transparent rounded-full animate-spin" />
-                  <span className="hidden sm:inline">
-                    {scrapeState.phase === 'starting' ? 'Starting…' : 'Syncing…'}
+                  <span className="hidden sm:inline text-xs">
+                    {scrapeState.phase === 'starting'
+                      ? 'Starting…'
+                      : scrapeState.status.counts.attempted > 0
+                        ? `${scrapeState.status.counts.attempted} checked, ${scrapeState.status.counts.persisted} new`
+                        : 'Syncing…'}
                   </span>
                   {scrapeState.phase === 'polling' && (
                     <button
