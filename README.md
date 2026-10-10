@@ -28,6 +28,12 @@ A production-oriented pipeline that scrapes promotions from The Promenade Shops 
 └─────────────────────────────────────────────────────────────┘
 ```
 
+**Ports:**
+- `localhost:3001` — Next.js UI (open this in your browser)
+- `localhost:3000` — Fastify REST API
+- `localhost:3306` — MySQL (internal, exposed for tooling)
+- `localhost:6379` — Redis (internal)
+
 **Monorepo structure:**
 
 ```
@@ -52,7 +58,7 @@ salman-promotion-aggregator/
 - **Docker** ≥ 24 and **Docker Compose** ≥ 2
 - That's it — MySQL, Redis, Node, and Chromium all run inside containers
 
-For running scripts or tests locally:
+For running the drift demo script and tests locally:
 - **Node.js** ≥ 20
 - **npm** ≥ 10
 
@@ -76,14 +82,14 @@ The defaults in `.env` work out of the box. Only change them if you have port co
 docker compose up --build
 ```
 
-This starts five services in order (with health-check dependencies):
+This starts five services in dependency order:
 - **MySQL** — waits until healthy
 - **Redis** — waits until healthy
-- **API** (`localhost:3000`) — runs migrations on startup, then serves requests
-- **Worker** — starts consuming scrape and verify jobs
+- **API** (`localhost:3000`) — runs DB migrations on startup, then serves requests
+- **Worker** — starts consuming scrape and verify jobs from the queue
 - **Web** (`localhost:3001`) — Next.js frontend
 
-First build takes ~3–5 minutes (Playwright downloads Chromium). Subsequent starts are fast.
+First build takes **3–5 minutes** — Playwright downloads Chromium (~200MB) inside the worker container. Subsequent starts are fast (cached layers).
 
 ### 3. Open the UI
 
@@ -91,7 +97,7 @@ First build takes ~3–5 minutes (Playwright downloads Chromium). Subsequent sta
 http://localhost:3001
 ```
 
-The UI starts empty — no promotions have been scraped yet. Click **Sync** to trigger your first scrape.
+The UI starts empty — no promotions have been scraped yet. Click **Sync** in the header to trigger your first scrape.
 
 ---
 
@@ -99,111 +105,110 @@ The UI starts empty — no promotions have been scraped yet. Click **Sync** to t
 
 ### Trigger a scrape
 
+Click **Sync** in the UI header — it returns a job ID immediately and shows live progress counts.
+
+Or via API:
 ```bash
-# Returns immediately with a job ID
 curl -X POST http://localhost:3000/scrape
 # → {"jobId":"1","message":"Scrape job enqueued"}
 ```
 
-Or click the **Sync** button in the UI header.
-
 ### Monitor scrape progress
 
+The UI header updates every 3 seconds: `5 checked, 3 new · Cancel`
+
+Or via API:
 ```bash
 curl http://localhost:3000/scrape/1
-# → {"jobId":"1","state":"active","counts":{"attempted":5,"persisted":4,"updated":0,"skipped":0,"failed":1},...}
+# → {"state":"active","counts":{"attempted":5,"persisted":3,...}}
 ```
-
-The UI polls this automatically and shows live counts.
-
-Possible states: `waiting`, `active`, `completed`, `failed`, `cancelled`
 
 ### Cancel a running scrape
 
+Click **Cancel** in the UI header while a scrape is running.
+
+Or via API:
 ```bash
 curl -X POST http://localhost:3000/scrape/1/cancel
 ```
 
-The worker finishes its current promotion, then stops. Records already persisted remain in the database. `GET /scrape/1` will show `state: "cancelled"` with the counts reached before stopping.
+The worker finishes its current promotion then stops cooperatively. Records already persisted remain in the database.
 
-### Browse promotions via API
+### Browse promotions
 
-```bash
-# All promotions (paginated)
-curl "http://localhost:3000/promotions"
-
-# Search + filter
-curl "http://localhost:3000/promotions?search=sale&brand=aerie&page=1&pageSize=10"
-
-# Date range (overlap semantics)
-curl "http://localhost:3000/promotions?startDate=2026-10-01&endDate=2026-10-31"
-
-# Single promotion
-curl http://localhost:3000/promotions/1
-
-# All brands with metadata
-curl http://localhost:3000/brands
-```
+Open `http://localhost:3001` — use the search box, date range filter, and brand dropdown to filter. Toggle between **All** and **By Brand** views. Click any card for full details.
 
 ### Trigger verification
 
+Click **Verify** in the UI header. The report panel appears below the hero when complete:
+- **All clear** — green indicator, all promotions match the live source
+- **Issues found** — lists each discrepancy with the exact field and before/after values
+
+Or via API:
 ```bash
 curl -X POST http://localhost:3000/verify
-# → {"runId":1,"jobId":"2","message":"Verification job enqueued"}
+# → {"runId":1,"jobId":"2"}
 
-# Poll for the report
 curl http://localhost:3000/verify/1
+# → {"result":"clean","checkedCount":30,"discrepancyCount":0,"discrepancies":[]}
 ```
-
-A clean run returns:
-```json
-{"runId":1,"result":"clean","checkedCount":29,"discrepancyCount":0,"discrepancies":[]}
-```
-
-A run with drift returns `"result":"drift"` with a `discrepancies` array listing each changed field.
 
 ---
 
 ## Drift Demo (FR-16)
 
-The drift demo simulates three types of data drift so you can see the verification report catch them.
+Demonstrates that the verification system catches specific data changes. Run this after a completed scrape.
 
-**Step 1 — Run a scrape first** (database must have promotions):
+### Option A — From inside Docker (recommended for reviewers)
+
 ```bash
-curl -X POST http://localhost:3000/scrape
-# Wait for it to complete (2–5 min)
-curl http://localhost:3000/scrape/1
+# Step 1: exec into the API container
+docker compose exec api sh
+
+# Step 2: run the drift script (DATABASE_URL already set in container)
+npx ts-node --project tsconfig.scripts.json scripts/demo-drift.ts
+
+# Step 3: exit the container
+exit
 ```
 
-**Step 2 — Inject drift** (run locally, targeting the running MySQL):
+### Option B — Locally (requires Node.js ≥ 20)
+
 ```bash
-# Copy .env for local use
-cp .env .env.local
-# Update DATABASE_URL to use localhost instead of the Docker service name:
-# DATABASE_URL=mysql://promotions_user:promotions_pass@localhost:3306/promotions
-npm run demo:drift
+# Install dependencies if not already done
+npm install
+
+# Run with localhost DATABASE_URL (MySQL port 3306 is exposed to host)
+DATABASE_URL="mysql://promotions_user:promotions_pass@localhost:3306/promotions" \
+  npm run demo:drift
 ```
 
-This makes **3 mutations**:
-1. Changes a promotion's `endDate` to 2 days ago
-2. Overwrites a brand's `hours` with fake data (`Mon–Fri: 9am–5pm, Sat–Sun: Closed`)
-3. Inserts a ghost promotion (`sourceId: DRIFT-DEMO-FAKE-9999`) that doesn't exist at source
+### What it does
 
-**Step 3 — Run verification:**
+The script makes **3 mutations** and resets all verification statuses to pending:
+
+1. Changes a promotion's `endDate` to 2 days in the past
+2. Overwrites a brand's store hours with fake values (`Mon–Fri: 9am–5pm, Sat–Sun: Closed`)
+3. Inserts a ghost promotion with a URL that doesn't exist at the source
+
+### Verify the drift
+
+Click **Verify** in the UI — the report will show all 3 discrepancies:
+- Ghost promotion: `Gone`
+- Brand hours: `Changed` with before/after values
+- End date: `Changed` with before/after timestamps
+
+Or via API:
 ```bash
 curl -X POST http://localhost:3000/verify
-# Note the runId
-curl http://localhost:3000/verify/1
+curl http://localhost:3000/verify/{runId}
 ```
 
-Expected output shows 3 discrepancies:
-- `endDate` changed on the first promotion
-- `hours` changed for the first brand  
-- Ghost promotion marked `gone`
+### Reset
 
-**Step 4 — Reset** by re-running the scrape:
 ```bash
 curl -X POST http://localhost:3000/scrape
+# Wait for completion — this restores real data from the live source
 ```
 
 ---
@@ -213,26 +218,23 @@ curl -X POST http://localhost:3000/scrape
 Tests run against committed HTML fixtures — no network access required.
 
 ```bash
-# Run all tests
 npm run test --workspace=apps/worker
-
-# Or from root
-npm test
 ```
 
-**Test coverage:**
-- `listingParser.test.ts` — 11 tests (dedup, field extraction, storeId, image URLs)
-- `detailParser.test.ts` — 9 tests (name, description, image, brand link, date text)
-- `brandParser.test.ts` — 13 tests (brand name, website, hours structure, social links)
-- `dateParser.test.ts` — 16 tests (Today/Tomorrow/Weekday/MM-DD, timezone, URL extraction)
-- `verificationDiff.test.ts` — 15 tests (no change, whitespace, CDN churn, date tolerance, field changes)
+**Coverage:**
+- `listingParser.test.ts` — 11 tests
+- `detailParser.test.ts` — 9 tests
+- `brandParser.test.ts` — 13 tests
+- `dateParser.test.ts` — 16 tests
+- `verificationDiff.test.ts` — 15 tests
+
+**64 tests, all passing.**
 
 ---
 
-## Typecheck & Lint
+## Typecheck
 
 ```bash
-# Typecheck all packages
 npx tsc --build packages/shared/tsconfig.json packages/db/tsconfig.json
 npx tsc --project apps/worker/tsconfig.json --noEmit
 npx tsc --project apps/api/tsconfig.json --noEmit
@@ -243,15 +245,15 @@ npx tsc --project apps/web/tsconfig.json --noEmit
 
 ## Environment Variables
 
-See `.env.example` for all variables. Key ones:
+All variables are in `.env.example`. Copy to `.env` — defaults work out of the box with Docker.
 
 | Variable | Default | Description |
 |---|---|---|
-| `DATABASE_URL` | `mysql://...@mysql:3306/promotions` | MySQL connection string |
-| `REDIS_URL` | `redis://redis:6379` | Redis connection string |
+| `DATABASE_URL` | `mysql://promotions_user:promotions_pass@mysql:3306/promotions` | MySQL connection (uses Docker service name `mysql`) |
+| `REDIS_URL` | `redis://redis:6379` | Redis connection |
 | `API_PORT` | `3000` | Fastify listen port |
-| `NEXT_PUBLIC_API_URL` | `http://localhost:3000` | API URL from browser |
-| `SCRAPER_REQUEST_DELAY_MS` | `1500` | Delay between page requests (ms) |
+| `NEXT_PUBLIC_API_URL` | `http://localhost:3000` | API URL used by the browser |
+| `SCRAPER_REQUEST_DELAY_MS` | `1500` | Delay between Playwright page requests (ms) |
 | `SCRAPER_MAX_CONCURRENCY` | `2` | Max concurrent Playwright pages |
 
 ---
@@ -261,60 +263,51 @@ See `.env.example` for all variables. Key ones:
 | Method | Path | Description |
 |---|---|---|
 | `GET` | `/health` | Health check |
-| `GET` | `/promotions` | List promotions (search, dates, brand, pagination) |
-| `GET` | `/promotions/:id` | Single promotion |
-| `GET` | `/brands` | All brands with promotion counts and metadata |
-| `POST` | `/scrape` | Enqueue scrape job → returns `jobId` |
+| `GET` | `/promotions` | List promotions — supports `search`, `startDate`, `endDate`, `brand`, `page`, `pageSize` |
+| `GET` | `/promotions/:id` | Single promotion, 404 if not found |
+| `GET` | `/brands` | All brands with `promotionCount` and metadata |
+| `POST` | `/scrape` | Enqueue scrape job → `{ jobId }` |
 | `GET` | `/scrape/:jobId` | Job state + counts |
 | `POST` | `/scrape/:jobId/cancel` | Cancel running job |
-| `POST` | `/verify` | Enqueue verification job → returns `runId` |
-| `GET` | `/verify/:runId` | Verification report |
+| `POST` | `/verify` | Enqueue verification job → `{ runId, jobId }` |
+| `GET` | `/verify/:runId` | Full verification report with discrepancies |
 
-All dates are ISO 8601 UTC. The logical timezone is `America/Denver`; the API response includes `meta.timezone: "America/Denver"`.
+All dates are ISO 8601 UTC. Logical timezone is `America/Denver` — returned in `meta.timezone`.
 
 ---
 
 ## Architecture Decisions
 
-See `DESIGN.md` for detailed reasoning. Key decisions:
+See `DESIGN.md` for full reasoning. Key decisions:
 
-- **Playwright** over got/axios: the site is fully JS-rendered; plain HTTP returns stripped text
-- **Normalized brands**: separate `brands` table, not duplicated on every promotion row
-- **Stable ID**: numeric deal ID from `/deals/{id}/` URL — source-assigned, durable
-- **BullMQ cancellation**: Redis `cancel:{jobId}` flag polled cooperatively between promotions
-- **Verification**: targeted re-check of known deal URLs (not full re-scrape)
-- **Politeness**: 1.5s delay, max 2 concurrent, realistic Chrome UA
+- **Playwright** over plain HTTP: the site is fully JS-rendered — `fetch()` returns stripped text with no links or images
+- **Fastify** over Express: built-in schema validation, better TypeScript generics, lower overhead — justified deviation from the Express suggestion in the brief
+- **Normalized brands**: separate `brands` table — hours/website stored once, not duplicated per promotion
+- **Stable ID**: numeric deal ID from `/deals/{id}/` URL — source-assigned, durable across re-scrapes
+- **Cooperative cancellation**: Redis `cancel:{jobId}` flag polled between promotions — clean stop without killing the process
+- **Targeted verification**: re-checks known deal URLs, not a full re-scrape — faster, sufficient for drift detection
 
-### Job Reliability & Resilience (FR-9, NFR-5)
+### Job Reliability (FR-9, NFR-5)
 
-To ensure scraper failures never crash the API or silently drop data, the system is designed with strict boundaries:
-
-- **Retries & Backoff:** Scrape and verify jobs are enqueued with `attempts: 3` and exponential backoff (`delay: 5000ms`).
-- **Timeouts:** A hard timeout of `5 minutes` per job prevents hung Playwright instances from blocking the queue.
-- **Granular Failure Handling:** The worker wraps *each individual promotion* in a `try/catch`. If one page fails, it increments the `failed` count, logs the error, and continues. The overall job does not fail unless the entire worker crashes.
-- **API Isolation:** Because the API and Worker are separate Docker services, a worker crash or timeout has zero impact on API availability. (You can test this by running `docker compose kill worker` while the API remains fully responsive).
+- `attempts: 3`, exponential backoff starting at 5s
+- 5-minute hard timeout per job (`lockDuration: 300_000`)
+- Per-promotion `try/catch` — one bad page increments `failed` count and continues; it never fails the whole job
+- API and Worker are separate Docker services — a crashed worker has zero impact on API availability
 
 ### UI Features (FR-12, FR-13)
 
-The Next.js frontend (`localhost:3001`) provides a fully interactive interface for account managers:
-
-- **Promotion Cards:** Displays name, brand, image, end date, and a link to the original source.
-- **Search & Filters:** Real-time keyword search (name/brand), date range filtering (with overlap semantics), and brand dropdown filtering.
-- **Pagination:** Page-number based pagination with configurable page size.
-- **Group-by-Brand Toggle:** A dedicated view that groups promotions under their respective brand headers, displaying the brand's name, operating hours, and website link alongside its active promotions.
-- **Live Job Status:** The UI polls `GET /scrape/:jobId` to show real-time progress (attempted, persisted, failed counts) during a scrape.
-
-### Performance & Resilience (NFR-3, NFR-5)
-
-- **API Latency:** Standard read endpoints (`GET /promotions`, `GET /brands`) utilize indexed database columns and consistently return in `< 100ms` under normal load, well under the 5s NFR threshold.
-- **Resilience Demonstration:** You can safely test failure isolation by killing the `worker` container (`docker compose stop worker`) while the `api` container is running. The API will continue to serve requests, return `202 Accepted` for new scrape jobs, and gracefully report that the job is "waiting" until the worker is restarted.
+- Promotion cards with image, brand, end date badge, verification status badge, detail drawer
+- Search across name and brand, date range filter (overlap semantics), brand dropdown
+- Pagination with accurate server-side deduplication
+- Group-by-brand toggle with brand hours, website link, and deal count
+- Live scrape progress in header with cancel control
+- Verification report panel showing clean/drift result with field-level before/after
 
 ---
 
 ## Known Limitations
 
-- **Social links**: The portal only exposes mall-wide social accounts (ShopsBriargate), not individual brand socials. `socialLinks` is always `[]`. Documented in `ASSUMPTIONS.md`.
-- **"View Website" redirect**: Brand website links go through a `shopstyle.it` redirect rather than directly to the brand's domain. This is the URL the portal provides.
-- **Verification on live site**: Because the live site changes infrequently, a verification run straight after a scrape usually returns clean. Use `npm run demo:drift` to demonstrate drift detection.
-- **No automated scheduling**: Scrapes and verifications are triggered on-demand. Cron scheduling is a straightforward extension (BullMQ has built-in `repeat` options).
-- **Relative end dates**: Dates like "Ends Today" and "Ends Saturday" are resolved against the scrape timestamp. If the scraper runs at midnight, edge cases may shift by ±1 day.
+- **Social links**: The portal exposes only the mall's own social accounts, not individual brand socials. `socialLinks` is always `[]`. Documented in `ASSUMPTIONS.md`.
+- **Website redirect**: Brand "Visit website" links go through `shopstyle.it` — this is what the portal provides.
+- **No automated scheduling**: On-demand only. BullMQ `repeat` option would add this in ~20 lines.
+- **Relative dates**: "Ends Today" resolved against scrape timestamp — midnight edge cases may shift ±1 day.
