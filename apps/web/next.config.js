@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn-files.eu.placewise.com' },
       { protocol: 'https', hostname: 'shopstyle.it' },
       { protocol: 'https', hostname: '**.placewise.com' },
+      { protocol: 'https', hostname: 'placewise.imgix.net' },
     ],
   },
   // @promotions/shared is pre-built to dist/src/ — no transpilation needed.
